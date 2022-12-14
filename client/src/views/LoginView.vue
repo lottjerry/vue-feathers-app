@@ -1,79 +1,45 @@
 <template>
-  <div class="home">
-    <HelloWorld />
-  <section class="h-screen mt-6">
-  <div class="px-6  text-gray-800">
-    <div
-      class="flex xl:justify-center lg:justify-between justify-center items-center flex-wrap h-full g-6"
-    >
-      <div
-        class="grow-0 shrink-1 md:shrink-0 basis-auto xl:w-6/12 lg:w-6/12 md:w-9/12 mb-12 md:mb-0"
-      >
-      </div>
-      <div class="xl:ml-20 xl:w-5/12 lg:w-5/12 md:w-8/12 mb-12 md:mb-0">
-        <form>
-          <!-- Username input -->
-          <div class="mb-6">
-            <input
-              type="text"
-              class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-              id="exampleFormControlInput2"
-              placeholder="Username"
-            />
-          </div>
-
-          <!-- Password input -->
-          <div class="mb-6">
-            <input
-              type="password"
-              class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-              id="exampleFormControlInput2"
-              placeholder="Password"
-            />
-          </div>
-
-          <div class="flex justify-between items-center mb-6">
-            <div class="form-group form-check">
+<div>
+  <h1 class="text-center text-5xl">Login</h1>
+  <div class="flex justify-center">
+    <div class="max-w-md mt-10">
+      <form
+            class="bg-gray-900 shadow-md rounded px-10 pt-6 pb-10 mb-4"
+            method="post"
+            @submit.prevent="onSubmit(username, password)"
+          >
+            <fieldset class="relative z-0 mb-6 w-full group">
               <input
-                type="checkbox"
-                class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
-                id="exampleCheck2"
+                v-model="username"
+                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                type="text"
+                name="username"
+                placeholder=" "
               />
-              <label class="form-check-label inline-block text-gray-800" for="exampleCheck2"
-                >Remember me</label
-              >
-            </div>
-            <a href="#!" class="text-gray-800">Forgot password?</a>
-          </div>
-
-          <div class="text-center lg:text-left">
-            <button
-              type="button"
-              class="inline-block px-7 py-3 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
-            >
+              <label for="username" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Username</label>
+            </fieldset>
+            <fieldset class="relative z-0 mb-6 w-full group">
+              <input
+                v-model="password"
+                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                type="password"
+                name="password"
+                placeholder=" "
+              />
+              <label for="password" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Password</label>
+            </fieldset>
+            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
               Login
             </button>
-            <p class="text-sm font-semibold mt-2 pt-1 mb-0">
-              Don't have an account?
-               <router-link to="/signup" class="text-red-600 hover:text-red-700 focus:text-red-700 transition duration-200 ease-in-out">Sign-up</router-link>
+            <p class="text-white mt-6 text-center mx-10">Dont have an account?
+              <router-link to="/signup" class="text-blue-500 hover:text-blue-600 focus:text-blue-600 transition duration-200 ease-in-out">Sign up</router-link>
             </p>
-          </div>
-        </form>
-      </div>
+      </form>
     </div>
   </div>
-</section>
-  </div>
+</div>
+  
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
-export default {
-  name: 'LoginView',
-  components: {
-    HelloWorld
-  }
-}
 </script>
