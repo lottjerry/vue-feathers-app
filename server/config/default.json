@@ -9,7 +9,7 @@
   "authentication": {
     "entity": "user",
     "service": "users",
-    "secret": "FtegKxD6JOf8mhjpLLpTqA+gtJ8=",
+    "secret": "uOod82rVp+n070i3JQw+2fE0tPE=",
     "authStrategies": [
       "jwt",
       "local"
@@ -24,7 +24,7 @@
       "expiresIn": "1d"
     },
     "local": {
-      "usernameField": "username",
+      "usernameField": "email",
       "passwordField": "password"
     }
   },
