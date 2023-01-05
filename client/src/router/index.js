@@ -1,5 +1,8 @@
-import { createRouter, createWebHistory } from "vue-router";
+import Vue from "vue";
+import VueRouter from "vue-router";
 import LoginView from "../views/LoginView.vue";
+
+Vue.use(VueRouter);
 
 const routes = [
   {
@@ -11,15 +14,16 @@ const routes = [
     path: "/signup",
     name: "signup",
     // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
+    // this generates a separate chunk (signup.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/SignupView.vue"),
+      import(/* webpackChunkName: "signup" */ "../views/SignupView.vue"),
   },
 ];
 
-const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+const router = new VueRouter({
+  mode: "history",
+  base: process.env.BASE_URL,
   routes,
 });
 
