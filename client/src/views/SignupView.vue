@@ -3,13 +3,17 @@
 		<h1 class="text-3xl font-bold">SIGN UP</h1>
 		<div class="flex justify-center">
 			<div class="w-full max-w-xs">
-				<form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+				<form
+					@submit.prevent="signUp"
+					class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
+				>
 					<div class="mb-4">
 						<div class="relative">
 							<div class="relative">
 								<input
 									type="text"
 									id="username"
+									v-model="user.username"
 									class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 rounded-lg border-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
 									placeholder=" "
 								/>
@@ -27,6 +31,7 @@
 								<input
 									type="text"
 									id="email"
+									v-model="user.email"
 									class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 rounded-lg border-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
 									placeholder=" "
 								/>
@@ -44,6 +49,7 @@
 								<input
 									type="password"
 									id="password"
+									v-model="user.password"
 									class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 rounded-lg border-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
 									placeholder=" "
 								/>
@@ -55,6 +61,7 @@
 							</div>
 						</div>
 					</div>
+					<!--
 					<div class="mb-6">
 						<div class="relative">
 							<div class="relative">
@@ -72,10 +79,11 @@
 							</div>
 						</div>
 					</div>
+					-->
 					<div class="flex-col items-center">
 						<button
 							class="border-2 border-blue-600 bg-white hover:bg-blue-600 text-blue-600 hover:text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition ease-in-out"
-							type="button"
+							type="submit"
 						>
 							Sign up
 						</button>
@@ -96,3 +104,26 @@
 		</div>
 	</div>
 </template>
+
+<script>
+export default {
+	name: 'SignupView',
+	data: () => ({
+		user: {
+			username: undefined,
+			email: undefined,
+			password: undefined,
+		},
+	}),
+	methods: {
+		signUp() {
+			const { User } = this.$FeathersVuex;
+			const user = new User(this.user);
+			user.save().then(() => {
+				console.log(`${this.user.username} has signed up successfully.`);
+				this.$router.push('/');
+			});
+		},
+	},
+};
+</script>
