@@ -43,11 +43,7 @@ export default {
 			.then(() => {
 				this.$router.push('./tasks');
 			})
-			.catch((e) => {
-				// Show login page (potentially with `e.message`)
-				console.error('Authentication error', e);
-				alert('Incorrect username or password.');
-			});
+			.catch(() => {});
 	},
 	methods: {
 		...mapActions('auth', ['authenticate']),
