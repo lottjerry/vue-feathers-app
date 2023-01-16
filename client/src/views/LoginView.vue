@@ -1,6 +1,6 @@
 <template>
 	<div>
-    <h1 class="text-3xl font-bold">LOGIN</h1>
+		<h1 class="text-3xl font-bold">LOGIN</h1>
 		<div class="flex justify-center">
 			<div class="w-full max-w-xs">
 				<form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
@@ -8,6 +8,7 @@
 						<div class="relative">
 							<div class="relative">
 								<input
+									v-model="user.email"
 									type="text"
 									id="email"
 									class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 rounded-lg border-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
@@ -25,6 +26,7 @@
 						<div class="relative">
 							<div class="relative">
 								<input
+									v-model="user.password"
 									type="password"
 									id="password"
 									class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 rounded-lg border-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
