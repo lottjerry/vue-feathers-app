@@ -87,7 +87,7 @@ export default {
 				...this.user, // use spread operator to get user credentials
 			})
 				.then(() => {
-					console.log(`${this.user.username} has logged in successfully.`);
+					this.$router.push('./tasks')
 				})
 				.catch((e) => {
 					// Show login page (potentially with `e.message`)
