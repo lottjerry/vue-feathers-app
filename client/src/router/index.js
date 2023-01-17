@@ -2,6 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import LoginView from '../views/LoginView.vue';
 import TasksView from '../views/TasksView.vue';
+import store from '../store/index.js'
 
 Vue.use(VueRouter);
 
@@ -24,6 +25,14 @@ const routes = [
 		path: '/tasks',
 		name: 'tasks',
 		component: TasksView,
+		beforeEnter(to, from, next) {
+			//console.log(store);
+			store.dispatch('auth/authenticate').then(() => {
+				next();
+			}).catch(() => {
+				next('/');
+			})
+		}
 	},
 ];
 
