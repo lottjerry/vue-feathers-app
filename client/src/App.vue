@@ -2,8 +2,8 @@
 	<div id="app">
 		<nav>
 			<div v-if="!user">
-				<router-link to="/">Home</router-link> |
-				<router-link to="/about">About</router-link>
+				<router-link to="/">Login</router-link> |
+				<router-link to="/signup">Signup</router-link>
 			</div>
 			<div v-if="user">
 				<h1>Logged In</h1>
