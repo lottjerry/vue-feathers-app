@@ -7,6 +7,13 @@
 			</div>
 			<div v-if="user">
 				<h1>Logged In</h1>
+				<button
+				@click="logout"
+					class="border-2 border-blue-600 bg-white hover:bg-blue-600 text-blue-600 hover:text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition ease-in-out"
+					type="button"
+				>
+					Logout
+				</button>
 			</div>
 		</nav>
 		<router-view />
@@ -53,6 +60,10 @@ export default {
 	},
 	methods: {
 		...mapActions('auth', ['authenticate']),
+		...mapActions('auth', { authLogout: 'logout' }),
+    logout() {
+      this.authLogout().then(() => this.$router.push('/'));
+    },
 	},
 };
 </script>
