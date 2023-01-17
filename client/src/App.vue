@@ -1,10 +1,13 @@
 <template>
 	<div id="app">
 		<nav>
-			<!--
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-      -->
+			<div v-if="!user">
+				<router-link to="/">Home</router-link> |
+				<router-link to="/about">About</router-link>
+			</div>
+			<div v-if="user">
+				<h1>Logged In</h1>
+			</div>
 		</nav>
 		<router-view />
 	</div>
@@ -34,7 +37,7 @@ nav a.router-link-exact-active {
 </style>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapState } from 'vuex';
 
 export default {
 	name: 'App',
@@ -44,6 +47,9 @@ export default {
 				this.$router.push('./tasks');
 			})
 			.catch(() => {});
+	},
+	computed: {
+		...mapState('auth', { user: 'payload' }),
 	},
 	methods: {
 		...mapActions('auth', ['authenticate']),
