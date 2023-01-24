@@ -87,7 +87,7 @@ export default {
 				...this.user, // use spread operator to get user credentials
 			})
 				.then(() => {
-					this.$router.push('./tasks')
+					this.$router.push('./messages')
 				})
 				.catch((e) => {
 					// Show login page (potentially with `e.message`)

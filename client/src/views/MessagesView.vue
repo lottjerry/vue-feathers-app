@@ -1,9 +1,9 @@
 <template>
-	<div><h1>Tasks View</h1></div>
+	<div><h1>Messages</h1></div>
 </template>
 
 <script>
 export default {
-	name: 'TasksView',
+	name: 'MessagesView',
 };
 </script>
