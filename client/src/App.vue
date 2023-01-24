@@ -51,7 +51,7 @@ export default {
 	mounted() {
 		this.authenticate() // authenticate using the existing jwt
 			.then(() => {
-				this.$router.push('./tasks');
+				this.$router.push('./messages');
 			})
 			.catch(() => {});
 	},
