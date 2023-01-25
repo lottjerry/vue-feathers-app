@@ -14,7 +14,7 @@ module.exports = function (app) {
           table.increments("id");
           table.integer("userId").unsigned();
           table.foreign("userId").references("users.id");
-          table.string("text");
+          table.string("messageBody");
           table.timestamps(false, true);
         })
         .then(() => console.log(`Created ${tableName} table`))
