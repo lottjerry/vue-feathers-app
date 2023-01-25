@@ -14,6 +14,7 @@ export default new Vuex.Store({
 	plugins: [
 		// Create user with the user service then call auth on that user
 		service('users'),
+		service('messages'),
 		// Setup the auth plugin.
 		auth({ userService: 'users' }),
 	],
