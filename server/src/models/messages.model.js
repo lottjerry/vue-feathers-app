@@ -1,21 +1,20 @@
 /* eslint-disable no-console */
 
-// users-model.js - A KnexJS
+// messages-model.js - A KnexJS
 //
 // See http://knexjs.org/
 // for more of what you can do here.
 module.exports = function (app) {
   const db = app.get("knexClient");
-  const tableName = "users";
-
+  const tableName = "messages";
   db.schema.hasTable(tableName).then((exists) => {
     if (!exists) {
       db.schema
         .createTable(tableName, (table) => {
-          table.increments("id").primary();
-          table.string("username").unique();
-          table.string("email").unique();
-          table.string("password");
+          table.increments("id");
+          table.integer("userId").unsigned();
+          table.foreign("userId").references("users.id");
+          table.string("text");
           table.timestamps(false, true);
         })
         .then(() => console.log(`Created ${tableName} table`))
