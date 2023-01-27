@@ -36,6 +36,8 @@
 			</div>
 		</div>
 		<h1 class="bold">Messages</h1>
+		<p>{{ messages }}</p>
+		<!--
 		<div class="border-2 border-black my-2 mx-40 rounded-lg overflow-auto h-96">
 			<div
 				class="flex border-2 border-gray-300 p-2 rounded-lg my-4 mx-10 hover:border-blue-600 cursor-pointer transition ease-in-out"
@@ -61,11 +63,12 @@
 				</div>
 			</div>
 		</div>
+		 -->
 	</div>
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
 	name: 'MessagesView',
@@ -77,9 +80,9 @@ export default {
 	}),
 	mounted() {
 		this.findMessages({ query: {} }).then((response) => {
-			//const messages = response.data || response;
-			//return messages
-			this.fetchMessages = response.data || response;
+			const messages = response.data || response;
+			return messages;
+			//this.fetchMessages = response.data || response;
 		});
 	},
 	methods: {
@@ -87,27 +90,16 @@ export default {
 		createMessage() {
 			const { Message } = this.$FeathersVuex;
 			const message = new Message(this.message);
-			message
-				.save()
-				.then(() => {
-					message.messageBody = undefined;
-				})
-				.then(() => {
-					this.findMessages({ query: {} }).then((response) => {
-						//const messages = response.data || response;
-						//return messages
-						this.fetchMessages = response.data || response;
-					});
-				});
+			message.save().then(() => {
+				message.messageBody = undefined;
+			});
 		},
 	},
-	/*
 	computed: {
 		...mapGetters('messages', { findMessagesInStore: 'find' }),
 		messages() {
 			return this.findMessagesInStore({ query: {} }).data;
 		},
 	},
-	*/
 };
 </script>
