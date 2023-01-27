@@ -7,7 +7,7 @@ module.exports = function (app) {
       host: "localhost",
       port: 3306,
       user: "root",
-      password: "Sword@2189",
+      password: "password",
       database: "app",
     },
   });
