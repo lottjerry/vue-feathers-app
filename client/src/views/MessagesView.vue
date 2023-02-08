@@ -35,13 +35,10 @@
 				</form>
 			</div>
 		</div>
-		<h1 class="bold">Messages</h1>
-		<p>{{ messages }}</p>
-		<!--
 		<div class="border-2 border-black my-2 mx-40 rounded-lg overflow-auto h-96">
 			<div
 				class="flex border-2 border-gray-300 p-2 rounded-lg my-4 mx-10 hover:border-blue-600 cursor-pointer transition ease-in-out"
-				v-for="message in fetchMessages"
+				v-for="message in messages"
 				:key="message.id"
 			>
 				<p class="flex self-center text-blue-600 m-auto justify-start">
@@ -63,7 +60,6 @@
 				</div>
 			</div>
 		</div>
-		 -->
 	</div>
 </template>
 
@@ -75,7 +71,7 @@ export default {
 	data: () => ({
 		message: {
 			messageBody: '',
-		}
+		},
 	}),
 	mounted() {
 		this.findMessages({ query: {} }).then((response) => {
