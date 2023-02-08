@@ -74,15 +74,13 @@ export default {
 	name: 'MessagesView',
 	data: () => ({
 		message: {
-			messageBody: undefined,
-		},
-		fetchMessages: null,
+			messageBody: '',
+		}
 	}),
 	mounted() {
 		this.findMessages({ query: {} }).then((response) => {
 			const messages = response.data || response;
 			return messages;
-			//this.fetchMessages = response.data || response;
 		});
 	},
 	methods: {
@@ -91,7 +89,7 @@ export default {
 			const { Message } = this.$FeathersVuex;
 			const message = new Message(this.message);
 			message.save().then(() => {
-				message.messageBody = undefined;
+				message.messageBody = '';
 			});
 		},
 	},
