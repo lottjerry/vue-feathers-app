@@ -47,13 +47,12 @@
 				<div class="flex gap-2">
 					<button
 						class="border-2 border-blue-600 bg-white hover:bg-blue-600 text-blue-600 hover:text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline transition ease-in-out"
-						type="submit"
 					>
 						Update
 					</button>
 					<button
+					@click="deleteMessage(message.id)"
 						class="border-2 border-blue-600 bg-white hover:bg-blue-600 text-blue-600 hover:text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline transition ease-in-out"
-						type="submit"
 					>
 						Delete
 					</button>
@@ -88,6 +87,11 @@ export default {
 				message.messageBody = '';
 			});
 		},
+		deleteMessage(messageId) {
+			const { Message } = this.$FeathersVuex;
+			const message = new Message({ id:messageId })
+			message.remove()
+		}
 	},
 	computed: {
 		...mapGetters('messages', { findMessagesInStore: 'find' }),
