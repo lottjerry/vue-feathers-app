@@ -19,7 +19,7 @@
 								<label
 									for="messageBody"
 									class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1"
-									>Message</label
+									>New Message</label
 								>
 							</div>
 						</div>
@@ -41,20 +41,59 @@
 				v-for="message in messages"
 				:key="message.id"
 			>
-				<p class="flex self-center text-blue-600 m-auto justify-start">
+				<p
+					v-if="!(selected === message.id)"
+					class="flex self-center text-blue-600 m-auto justify-start"
+				>
 					{{ message.messageBody }}
 				</p>
-				<div class="flex gap-2">
+				<div
+					v-if="selected === message.id"
+					class="flex self-center text-blue-600 m-auto justify-start"
+				>
+					<div class="relative">
+						<div class="relative">
+							<input
+								v-model="newMessage"
+								type="text"
+								id="updateMessageBody"
+								class="block px-40 pb-2.5 pt-4 w-full text-sm text-gray-900 rounded-lg border-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+								placeholder=" "
+							/>
+							<label
+								for="updateMessageBody"
+								class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1"
+								>Update Message</label
+							>
+						</div>
+					</div>
+				</div>
+				<div v-if="!(selected === message.id)" class="flex gap-2">
 					<button
+						@click="toggleEdit(message.id)"
 						class="border-2 border-blue-600 bg-white hover:bg-blue-600 text-blue-600 hover:text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline transition ease-in-out"
 					>
 						Edit
 					</button>
 					<button
-					@click="deleteMessage(message.id)"
+						@click="deleteMessage(message.id)"
 						class="border-2 border-blue-600 bg-white hover:bg-blue-600 text-blue-600 hover:text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline transition ease-in-out"
 					>
 						Delete
+					</button>
+				</div>
+				<div v-if="selected === message.id" class="flex gap-2">
+					<button
+						@click="updateMessage(message.id)"
+						class="border-2 border-blue-600 bg-white hover:bg-blue-600 text-blue-600 hover:text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline transition ease-in-out"
+					>
+						Update
+					</button>
+					<button
+						@click="cancelEdit()"
+						class="border-2 border-blue-600 bg-white hover:bg-blue-600 text-blue-600 hover:text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline transition ease-in-out"
+					>
+						Cancel
 					</button>
 				</div>
 			</div>
@@ -71,27 +110,48 @@ export default {
 		message: {
 			messageBody: '',
 		},
+		newMessage: '',
+		edit: false,
+		selected: '',
 	}),
 	mounted() {
-		this.findMessages({ query: {} }).then((response) => {
-			const messages = response.data || response;
-			return messages;
-		});
+		this.findMessages({ query: {} });
 	},
 	methods: {
 		...mapActions('messages', { findMessages: 'find' }),
 		createMessage() {
 			const { Message } = this.$FeathersVuex;
 			const message = new Message(this.message);
+			console.log(message.messageBody);
 			message.save().then(() => {
 				message.messageBody = '';
 			});
 		},
 		deleteMessage(messageId) {
 			const { Message } = this.$FeathersVuex;
-			const message = new Message({ id:messageId })
-			message.remove()
-		}
+			const message = new Message({ id: messageId });
+			message.remove();
+		},
+		updateMessage(messageId) {
+			const { Message } = this.$FeathersVuex;
+			const message = new Message({ id: messageId });
+			message.messageBody = this.newMessage;
+			message.save().then(() => {
+				this.selected = '';
+				this.newMessage = '';
+			});
+		},
+		toggleEdit(messageId) {
+			const { Message } = this.$FeathersVuex;
+			const message = new Message({ id: messageId });
+			this.selected = message.id;
+			this.edit = true;
+			this.newMessage = '';
+		},
+		cancelEdit() {
+			this.selected = '';
+			this.newMessage = '';
+		},
 	},
 	computed: {
 		...mapGetters('messages', { findMessagesInStore: 'find' }),
