@@ -15,7 +15,7 @@ module.exports = function (app) {
           table.integer("userId").unsigned();
           table.foreign("userId").references("users.id");
           table.string("messageBody");
-          table.timestamps(false, true);
+          // table.timestamps(false, true); timestamps throwing bad request error on update
         })
         .then(() => console.log(`Created ${tableName} table`))
         .catch((e) => console.error(`Error creating ${tableName} table`, e));

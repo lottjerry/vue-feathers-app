@@ -17,7 +17,8 @@ export default new Vuex.Store({
 			//debug: true
 		}),
 		service('messages', {
-			//debug: true
+			debug: true,
+			preferUpdate: true,
 		}),
 		// Setup the auth plugin.
 		auth({ userService: 'users' }),
