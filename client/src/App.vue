@@ -62,7 +62,7 @@ export default {
 		...mapActions('auth', ['authenticate']),
 		...mapActions('auth', { authLogout: 'logout' }),
     logout() {
-      this.authLogout().then(() => this.$router.push('/'));
+      this.authLogout().then(() => this.$router.go('/')); // changed .push to .go to refresh page. A quick fix because feathers does not automatically clear data.
     },
 	},
 };
