@@ -122,7 +122,6 @@ export default {
 		createMessage() {
 			const { Message } = this.$FeathersVuex;
 			const message = new Message(this.message);
-			console.log(message.messageBody);
 			message.save().then(() => {
 				message.messageBody = '';
 			});
