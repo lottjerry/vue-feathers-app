@@ -5,7 +5,7 @@
 				<router-link to="/">Login</router-link> |
 				<router-link to="/signup">Signup</router-link>
 			</div>
-			<div v-if="userPayload" >
+			<div v-if="userPayload">
 				<h1 v-for="user in users" :key="user.id">
 					Welcome {{ user.username }}
 				</h1>
@@ -67,8 +67,9 @@ export default {
 	methods: {
 		...mapActions('auth', ['authenticate']),
 		...mapActions('auth', { authLogout: 'logout' }),
-		logout() {
-			this.authLogout().then(() => this.$router.go('/')); // changed .push to .go to refresh page. A quick fix because feathers does not automatically clear data.
+		async logout() {
+			await this.authLogout();
+			this.$router.push('/'); // changed .push to .go to refresh page. A quick fix because feathers does not automatically clear data.
 		},
 	},
 };
