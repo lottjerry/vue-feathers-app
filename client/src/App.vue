@@ -1,14 +1,16 @@
 <template>
 	<div id="app">
 		<nav>
-			<div v-if="!user">
+			<div v-if="!userPayload">
 				<router-link to="/">Login</router-link> |
 				<router-link to="/signup">Signup</router-link>
 			</div>
-			<div v-if="user">
-				<h1>Logged In</h1>
+			<div v-if="userPayload" >
+				<h1 v-for="user in users" :key="user.id">
+					Welcome {{ user.username }}
+				</h1>
 				<button
-				@click="logout"
+					@click="logout"
 					class="border-2 border-blue-600 bg-white hover:bg-blue-600 text-blue-600 hover:text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline transition ease-in-out"
 					type="button"
 				>
@@ -44,7 +46,7 @@ nav a.router-link-exact-active {
 </style>
 
 <script>
-import { mapActions, mapState } from 'vuex';
+import { mapActions, mapState, mapGetters } from 'vuex';
 
 export default {
 	name: 'App',
@@ -56,14 +58,18 @@ export default {
 			.catch(() => {});
 	},
 	computed: {
-		...mapState('auth', { user: 'payload' }),
+		...mapGetters('users', { findUsersInStore: 'find' }),
+		users() {
+			return this.findUsersInStore({ query: {} }).data;
+		},
+		...mapState('auth', { userPayload: 'payload' }),
 	},
 	methods: {
 		...mapActions('auth', ['authenticate']),
 		...mapActions('auth', { authLogout: 'logout' }),
-    logout() {
-      this.authLogout().then(() => this.$router.go('/')); // changed .push to .go to refresh page. A quick fix because feathers does not automatically clear data.
-    },
+		logout() {
+			this.authLogout().then(() => this.$router.go('/')); // changed .push to .go to refresh page. A quick fix because feathers does not automatically clear data.
+		},
 	},
 };
 </script>
