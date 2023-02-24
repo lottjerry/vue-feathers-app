@@ -11,7 +11,7 @@ module.exports = function (app) {
     if (!exists) {
       db.schema
         .createTable(tableName, (table) => {
-          table.increments("id");
+          table.increments("id").primary();
           table.integer("userId").unsigned();
           table.foreign("userId").references("users.id");
           table.string("messageBody");
