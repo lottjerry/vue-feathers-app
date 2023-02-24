@@ -116,9 +116,11 @@ export default {
 	}),
 	mounted() {
 		this.findMessages({ query: {} });
+		this.findUsers({ query: {} });
 	},
 	methods: {
 		...mapActions('messages', { findMessages: 'find' }),
+		...mapActions('users', { findUsers: 'find' }),
 		createMessage() {
 			const { Message } = this.$FeathersVuex;
 			const message = new Message(this.message);
@@ -156,6 +158,10 @@ export default {
 		...mapGetters('messages', { findMessagesInStore: 'find' }),
 		messages() {
 			return this.findMessagesInStore({ query: {} }).data;
+		},
+		...mapGetters('users', { findUsersInStore: 'find' }),
+		users() {
+			return this.findUsersInStore({ query: {} }).data;
 		},
 	},
 };
