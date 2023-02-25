@@ -45,17 +45,25 @@
 							<div
 								class="group-hover:block dropdown-menu absolute hidden h-auto transition ease-in-out"
 							>
-								<ul class="bg-white shadow px-2.5 py-8 mt-5 border-2 border-blue-600 rounded-lg blue-red-600 hover:bg-blue-600 hover:text-white">
+								<ul class="bg-white shadow px-2.5 py-8 mt-5 border-2 border-blue-600 rounded-lg blue-red-600">
 									<li class="py-1">
-										<a
-											class="block font-bold text-base hover:outline-double outline-white cursor-pointer rounded-lg p-1"
-											>Settings</a
+										<router-link
+										to="/messages"
+											class="border-2 border-blue-600 bg-white block font-bold text-base text-blue-600 hover:bg-blue-600 hover:text-white cursor-pointer rounded-lg p-1 hover:border-black"
+											>Messages</router-link
+										>
+									</li>
+									<li class="py-1">
+										<router-link
+										to="/info"
+											class="border-2 border-blue-600 bg-white block font-bold text-base text-blue-600 hover:bg-blue-600 hover:text-white cursor-pointer rounded-lg p-1 hover:border-black"
+											>Info</router-link
 										>
 									</li>
 									<li class="py-1">
 										<a
 										@click="logout"
-											class="block font-bold text-base hover:outline-double outline-white cursor-pointer rounded-lg p-1"
+											class="border-2 border-blue-600 bg-white block font-bold text-base text-blue-600 hover:bg-blue-600 hover:text-white cursor-pointer rounded-lg p-1 hover:border-black"
 											>Logout</a
 										>
 									</li>
