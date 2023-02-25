@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<h1 class="text-3xl font-bold">LOGIN</h1>
+		<h1 class="text-3xl font-bold text-blue-600">LOGIN</h1>
 		<div class="flex justify-center">
 			<div class="w-full max-w-xs">
 				<form
