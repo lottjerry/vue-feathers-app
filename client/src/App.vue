@@ -55,9 +55,9 @@
 									</li>
 									<li class="py-1">
 										<router-link
-										to="/info"
+										to="/profile"
 											class="border-2 border-blue-600 bg-white block font-bold text-base text-blue-600 hover:bg-blue-600 hover:text-white cursor-pointer rounded-lg p-1 hover:border-black"
-											>Info</router-link
+											>Profile</router-link
 										>
 									</li>
 									<li class="py-1">
