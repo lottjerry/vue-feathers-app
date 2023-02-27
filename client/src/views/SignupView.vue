@@ -106,6 +106,8 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+
 export default {
 	name: 'SignupView',
 	data: () => ({
@@ -116,12 +118,20 @@ export default {
 		},
 	}),
 	methods: {
+		...mapActions('auth', ['authenticate']),
+		login() {
+			this.authenticate({
+				strategy: 'local',
+				...this.user, // use spread operator to get user credentials
+			}).then(() => {
+				this.$router.push('./messages');
+			});
+		},
 		signUp() {
 			const { User } = this.$FeathersVuex;
 			const user = new User(this.user);
 			user.save().then(() => {
-				console.log(`${this.user.username} has signed up successfully.`);
-				this.$router.push('/');
+				this.login();
 			});
 		},
 	},
