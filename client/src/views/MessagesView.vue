@@ -43,7 +43,7 @@
 			>
 				<p
 					v-if="!(selected === message.id)"
-					class="flex self-center text-blue-600 m-auto justify-start"
+					class="flex self-center text-black m-auto justify-start"
 				>
 					{{ message.messageBody }}
 				</p>
@@ -68,33 +68,76 @@
 						</div>
 					</div>
 				</div>
-				<div v-if="!(selected === message.id)" class="flex gap-2">
-					<button
+				<div v-if="!(selected === message.id)" class="flex gap-5">
+					<svg
 						@click="toggleEdit(message.id)"
-						class="border-2 border-blue-600 bg-white hover:bg-blue-600 text-blue-600 hover:text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline transition ease-in-out"
+						xmlns="http://www.w3.org/2000/svg"
+						class="hover:stroke-blue-600 hover:cursor-pointer flex self-center"
+						width="30"
+						height="30"
+						viewBox="0 0 30 30"
+						fill="none"
+						stroke="#000000"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
 					>
-						Edit
-					</button>
-					<button
+						<polygon points="16 3 21 8 8 21 3 21 3 16 16 3"></polygon>
+					</svg>
+
+					<svg
 						@click="deleteMessage(message.id)"
-						class="border-2 border-blue-600 bg-white hover:bg-blue-600 text-blue-600 hover:text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline transition ease-in-out"
+						class="hover:stroke-red-600 hover:cursor-pointer flex self-center"
+						xmlns="http://www.w3.org/2000/svg"
+						width="30"
+						height="30"
+						viewBox="0 0 30 30"
+						fill="none"
+						stroke="#000000"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
 					>
-						Delete
-					</button>
+						<polyline points="3 6 5 6 21 6"></polyline>
+						<path
+							d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+						></path>
+						<line x1="10" y1="11" x2="10" y2="17"></line>
+						<line x1="14" y1="11" x2="14" y2="17"></line>
+					</svg>
 				</div>
-				<div v-if="selected === message.id" class="flex gap-2">
-					<button
+				<div v-if="selected === message.id" class="flex gap-5">
+					<svg
 						@click="updateMessage(message.id)"
-						class="border-2 border-blue-600 bg-white hover:bg-blue-600 text-blue-600 hover:text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline transition ease-in-out"
+						xmlns="http://www.w3.org/2000/svg"
+						class="hover:stroke-green-600 hover:cursor-pointer flex self-center"
+						width="30"
+						height="30"
+						viewBox="0 0 30 30"
+						fill="none"
+						stroke="#000000"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
 					>
-						Update
-					</button>
-					<button
+						<polyline points="20 6 9 17 4 12"></polyline>
+					</svg>
+					<svg
 						@click="cancelEdit()"
-						class="border-2 border-blue-600 bg-white hover:bg-blue-600 text-blue-600 hover:text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline transition ease-in-out"
+						xmlns="http://www.w3.org/2000/svg"
+						class="hover:stroke-red-600 hover:cursor-pointer flex self-center"
+						width="30"
+						height="30"
+						viewBox="0 0 30 30"
+						fill="none"
+						stroke="#000000"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
 					>
-						Cancel
-					</button>
+						<line x1="18" y1="6" x2="6" y2="18"></line>
+						<line x1="6" y1="6" x2="18" y2="18"></line>
+					</svg>
 				</div>
 			</div>
 		</div>

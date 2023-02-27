@@ -2,7 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import LoginView from '../views/LoginView.vue';
 import MessagesView from '../views/MessagesView.vue';
-import InfoView from '../views/InfoView.vue';
+import ProfileView from '../views/ProfileView.vue';
 import store from '../store/index.js'
 
 Vue.use(VueRouter);
@@ -40,9 +40,9 @@ const routes = [
 	},
 
 	{
-		path: '/info',
-		name: 'info',
-		component: InfoView,
+		path: '/profile',
+		name: 'profile',
+		component: ProfileView,
 		beforeEnter(to, from, next) {
 			//console.log(store);
 			store

@@ -13,26 +13,26 @@ const limitToUser = setField({
 module.exports = {
   before: {
     all: [],
-    find: [ authenticate('jwt'), limitToUser ],
-    get: [ authenticate('jwt'), limitToUser ],
-    create: [ hashPassword('password') ],
-    update: [ hashPassword('password'),  authenticate('jwt') ],
-    patch: [ hashPassword('password'),  authenticate('jwt') ],
-    remove: [ authenticate('jwt') ]
+    find: [authenticate("jwt"), limitToUser],
+    get: [authenticate("jwt"), limitToUser],
+    create: [hashPassword("password")],
+    update: [hashPassword("password"), authenticate("jwt"), limitToUser],
+    patch: [hashPassword("password"), authenticate("jwt"), limitToUser],
+    remove: [authenticate("jwt"), limitToUser],
   },
 
   after: {
-    all: [ 
+    all: [
       // Make sure the password field is never sent to the client
       // Always must be the last hook
-      protect('password')
+      protect("password"),
     ],
     find: [],
     get: [],
     create: [],
     update: [],
     patch: [],
-    remove: []
+    remove: [],
   },
 
   error: {
@@ -42,6 +42,6 @@ module.exports = {
     create: [],
     update: [],
     patch: [],
-    remove: []
-  }
+    remove: [],
+  },
 };
