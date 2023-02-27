@@ -24,7 +24,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="flex-col items-center">
+					<div class="flex flex-col items-center gap-5">
 						<button
 							class="border-2 border-blue-600 bg-white hover:bg-blue-600 text-blue-600 hover:text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline transition ease-in-out"
 							type="submit"
@@ -141,6 +141,12 @@
 				</div>
 			</div>
 		</div>
+		<button
+						@click="deleteAllMessages()"
+							class="border-2 border-red-600 bg-white hover:bg-red-600 text-red-600 hover:text-white font-bold py-1 px-8 rounded focus:outline-none focus:shadow-outline transition ease-in-out"
+						>
+							Delete All
+						</button>
 	</div>
 </template>
 
@@ -175,6 +181,11 @@ export default {
 			const { Message } = this.$FeathersVuex;
 			const message = new Message({ id: messageId });
 			message.remove();
+		},
+		deleteAllMessages() {
+			for (const message of this.messages) {
+				message.remove();
+			}
 		},
 		updateMessage(messageId) {
 			const { Message } = this.$FeathersVuex;
