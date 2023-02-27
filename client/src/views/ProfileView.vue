@@ -213,14 +213,9 @@ export default {
 		deleteUser(userId) {
 			const { User } = this.$FeathersVuex;
 			const user = new User({ id: userId });
-			user
-				.remove()
-				.then(() => {
-					this.$router.go('/');
-					window.setTimeout(function(){
-                alert("Account Successfully Deleted!");
-            }, 3000); 
-				})
+			user.remove().then(() => {
+				this.$router.go('/');
+			});
 		},
 		updateUser(userId) {
 			const { User } = this.$FeathersVuex;
@@ -233,8 +228,7 @@ export default {
 			}
 			user.save().then(() => {
 				this.cancelUpdate();
-				alert('Account updated Successfully!'
-				)
+				alert('Account updated Successfully!');
 			});
 		},
 		toggleUsernameEdit() {
