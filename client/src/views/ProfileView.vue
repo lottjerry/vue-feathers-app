@@ -143,7 +143,7 @@
 					</h1>
 					<div class="flex gap-5 justify-center">
 						<button
-							@click="deleteAllMessages()"
+							@click="deleteUser(user.id)"
 							class="border-2 border-green-600 bg-white hover:bg-green-600 text-green-600 hover:text-white font-bold py-1 px-2 w-20 rounded focus:outline-none focus:shadow-outline transition ease-in-out"
 						>
 							Yes
@@ -213,17 +213,14 @@ export default {
 		...mapActions('messages', { findMessages: 'find' }),
 		...mapActions('users', { findUsers: 'find' }),
 		deleteUser(userId) {
-			//this.deleteAllMessages();
+			for (const message of this.messages) {
+				message.remove();
+			}
 			const { User } = this.$FeathersVuex;
 			const user = new User({ id: userId });
 			user.remove().then(() => {
 				this.$router.go('/');
 			});
-		},
-		deleteAllMessages() {
-			for (const message of this.messages) {
-				message.remove();
-			}
 		},
 		updateUser(userId) {
 			const { User } = this.$FeathersVuex;
