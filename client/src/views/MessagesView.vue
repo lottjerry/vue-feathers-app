@@ -6,7 +6,7 @@
 					@submit.prevent="createMessage"
 					class="bg-white shadow-md rounded px-8 pt-4 pb-4 mb-4"
 				>
-					<div class="mb-6">
+					<div class="mb-6" v-if="validMessage">
 						<div class="relative">
 							<div class="relative">
 								<input
@@ -24,9 +24,49 @@
 							</div>
 						</div>
 					</div>
+					<div class="mb-6" v-else>
+						<div class="relative">
+							<div class="relative">
+								<input
+									v-model="message.messageBody"
+									type="text"
+									id="messageBody"
+									class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 rounded-lg border-2 border-red-300 appearance-none focus:outline-none focus:ring-0 focus:border-red-600 peer"
+									placeholder=" "
+								/>
+								<label
+									for="messageBody"
+									class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-red-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1"
+									>New Message</label
+								>
+							</div>
+						</div>
+					</div>
+					<div v-if="!validMessage" class="flex gap-1 justify-center mb-5">
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							class="stroke-orange-400"
+							width="24"
+							height="24"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="#000000"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+						>
+							<polygon
+								points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"
+							></polygon>
+							<line x1="12" y1="8" x2="12" y2="12"></line>
+							<line x1="12" y1="16" x2="12.01" y2="16"></line>
+						</svg>
+						<p class="text-orange-600">Message can't be empty.</p>
+					</div>
 					<div class="flex flex-col items-center gap-5">
 						<button
-							class="border-2 border-blue-600 bg-white hover:bg-blue-600 text-blue-600 hover:text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline transition ease-in-out"
+							v-bind:disabled="isButtonDisabled"
+							class="border-2 border-blue-600 bg-white hover:bg-blue-600 text-blue-600 hover:text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition ease-in-out disabled:bg-gray-400 disabled:border-gray-400 disabled:text-gray-500 disabled:cursor-not-allowed"
 							type="submit"
 						>
 							Create Message
@@ -142,11 +182,11 @@
 			</div>
 		</div>
 		<button
-						@click="deleteAllMessages()"
-							class="border-2 border-red-600 bg-white hover:bg-red-600 text-red-600 hover:text-white font-bold py-1 px-8 rounded focus:outline-none focus:shadow-outline transition ease-in-out"
-						>
-							Delete All
-						</button>
+			@click="deleteAllMessages()"
+			class="border-2 border-red-600 bg-white hover:bg-red-600 text-red-600 hover:text-white font-bold py-1 px-8 rounded focus:outline-none focus:shadow-outline transition ease-in-out"
+		>
+			Delete All
+		</button>
 	</div>
 </template>
 
@@ -162,6 +202,8 @@ export default {
 		newMessage: '',
 		edit: false,
 		selected: '',
+		validMessage: true,
+		isButtonDisabled: true,
 	}),
 	mounted() {
 		this.findMessages({ query: {} });
@@ -207,6 +249,20 @@ export default {
 			this.selected = '';
 			this.newMessage = '';
 		},
+		validateMessageRules(value) {
+			if (/^.+/.test(value)) {
+				this.validMessage = true;
+			} else {
+				this.validMessage = false;
+			}
+		},
+		checkValidation() {
+			if (this.validMessage === true) {
+				this.isButtonDisabled = false;
+			} else {
+				this.isButtonDisabled = true;
+			}
+		},
 	},
 	computed: {
 		...mapGetters('messages', { findMessagesInStore: 'find' }),
@@ -216,6 +272,13 @@ export default {
 		...mapGetters('users', { findUsersInStore: 'find' }),
 		users() {
 			return this.findUsersInStore({ query: {} }).data;
+		},
+	},
+	watch: {
+		'message.messageBody'(value) {
+			this.message.messageBody = value;
+			this.validateMessageRules(value);
+			this.checkValidation();
 		},
 	},
 };
