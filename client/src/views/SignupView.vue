@@ -343,12 +343,12 @@ export default {
 		'user.username'(value) {
 			this.user.username = value;
 			this.validateUserRules(value);
-			this.checkValidation()
+			this.checkValidation();
 		},
 		'user.email'(value) {
 			this.user.email = value;
 			this.validateEmailRules(value);
-			this.checkValidation()
+			this.checkValidation();
 		},
 	},
 };
