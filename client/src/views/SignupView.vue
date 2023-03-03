@@ -218,6 +218,11 @@
 									>Password</label
 								>
 							</div>
+							<div v-if="!validPassword" class="flex gap-1 justify-center">
+								<p class="text-orange-600">
+									Password has to be 8 or more characters long.
+								</p>
+							</div>
 						</div>
 					</div>
 					<!--
@@ -281,6 +286,7 @@ export default {
 			duplicateUsername: undefined,
 			validUsername: true,
 			validEmail: true,
+			validPassword: true,
 			isButtonDisabled: false,
 			usernamePattern: /users.users_username_unique/i,
 			emailPattern: /users.users_email_unique/i,
@@ -318,7 +324,7 @@ export default {
 				});
 		},
 		checkValidation() {
-			if (this.validUsername === true && this.validEmail === true) {
+			if (this.validUsername === true && this.validEmail === true && this.validPassword === true) {
 				this.isButtonDisabled = false;
 			} else {
 				this.isButtonDisabled = true;
@@ -338,17 +344,29 @@ export default {
 				this.validEmail = false;
 			}
 		},
+		validatePasswordRules(value) {
+			if (/^.{8,}$/.test(value)) {
+				this.validPassword = true;
+			} else {
+				this.validPassword = false;
+			}
+		},
 	},
 	watch: {
 		'user.username'(value) {
 			this.user.username = value;
 			this.validateUserRules(value);
-			this.checkValidation();
+			this.checkValidation()
 		},
 		'user.email'(value) {
 			this.user.email = value;
 			this.validateEmailRules(value);
-			this.checkValidation();
+				this.checkValidation()
+		},
+		'user.password'(value) {
+			this.user.password = value;
+			this.validatePasswordRules(value);
+				this.checkValidation()
 		},
 	},
 };
