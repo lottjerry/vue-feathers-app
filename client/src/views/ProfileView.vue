@@ -1,7 +1,7 @@
 <template>
 	<div class="flex justify-center">
 		<div
-			class="bg-white shadow-lg rounded px-8 pt-6 pb-8 mb-4 max-w-lg w-full flex-col gap-4 border justify-center"
+			class="bg-white shadow-lg rounded px-8 pt-6 pb-8 mb-4 max-w-xl w-full flex-col gap-4 border justify-center"
 		>
 			<h1 class="text-3xl font-bold text-blue-600 p-6 underline">My Profile</h1>
 			<div class="mb-6 p-3 flex justify-center">
@@ -10,20 +10,61 @@
 					<div v-if="!usernameEdit" class="mx-4 mr-16">
 						{{ user.username }}
 					</div>
-					<div class="relative" v-else>
-						<input
-							v-model="newUsername"
-							type="text"
-							id="username"
-							class="block py-2.5 px-0 w-full text-sm text-black bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-							placeholder=" "
-						/>
-						<label
-							for="username"
-							class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1"
-							>New Username</label
-						>
+					<div v-else>
+						<div class="relative" v-if="!duplicateUsername">
+							<input
+								v-model="newUsername"
+								type="text"
+								id="username"
+								class="block py-2.5 px-0 w-full text-sm text-black bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+								placeholder=" "
+							/>
+							<label
+								for="username"
+								class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1"
+								>New Username</label
+							>
+						</div>
+						<div v-else class="mt-10">
+							<div class="relative">
+								<input
+								v-model="newUsername"
+								type="text"
+								id="username"
+								class="block py-2.5 px-0 w-full text-sm text-black bg-transparent border-0 border-b-2 border-red-300 appearance-none focus:outline-none focus:ring-0 focus:border-red-600 peer"
+								placeholder=" "
+							/>
+							<label
+								for="username"
+								class="absolute text-sm text-red-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-red-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1"
+								>New Username</label
+							>
+							</div>
+							
+							<div class="flex justify-center mt-4">
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									class="stroke-red-600"
+									width="24"
+									height="24"
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="#000000"
+									stroke-width="2"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+								>
+									<polygon
+										points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"
+									></polygon>
+									<line x1="12" y1="8" x2="12" y2="12"></line>
+									<line x1="12" y1="16" x2="12.01" y2="16"></line>
+								</svg>
+								<p class="text-red-600">Username already exists.</p>
+							</div>
+						</div>
 					</div>
+
 					<svg
 						v-if="!usernameEdit"
 						@click="toggleUsernameEdit()"
@@ -65,19 +106,59 @@
 					<div v-if="!emailEdit" class="">
 						{{ user.email }}
 					</div>
-					<div class="relative ml-8" v-else>
-						<input
-							v-model="newEmail"
-							type="email"
-							id="email"
-							class="block py-2.5 px-0 w-full text-sm text-black bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-							placeholder=" "
-						/>
-						<label
-							for="email"
-							class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1"
-							>New Email</label
-						>
+							<div v-else>
+						<div class="relative" v-if="!duplicateEmail">
+							<input
+								v-model="newEmail"
+								type="text"
+								id="email"
+								class="block py-2.5 px-0 w-full text-sm text-black bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+								placeholder=" "
+							/>
+							<label
+								for="email"
+								class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1"
+								>New Email</label
+							>
+						</div>
+						<div class="mt-10" v-else>
+							<div class="relative">
+								<input
+								v-model="newEmail"
+								type="text"
+								id="email"
+								class="block py-2.5 px-0 w-full text-sm text-black bg-transparent border-0 border-b-2 border-red-300 appearance-none focus:outline-none focus:ring-0 focus:border-red-600 peer"
+								placeholder=" "
+							/>
+							<label
+								for="email"
+								class="absolute text-sm text-red-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-red-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1"
+								>New Email</label
+							>
+							</div>
+							
+							<div class="flex gap-2 justify-center mt-3">
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									class="stroke-red-600"
+									width="24"
+									height="24"
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="#000000"
+									stroke-width="2"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+								>
+									<polygon
+										points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"
+									></polygon>
+									<line x1="12" y1="8" x2="12" y2="12"></line>
+									<line x1="12" y1="16" x2="12.01" y2="16"></line>
+								</svg>
+								<p class="text-red-600">Email already exists.</p>
+							</div>
+						</div>
 					</div>
 					<svg
 						v-if="!emailEdit"
@@ -204,6 +285,13 @@ export default {
 		usernameEdit: false,
 		emailEdit: false,
 		promptDelete: false,
+		duplicateEmail: undefined,
+		duplicateUsername: undefined,
+		validUsername: true,
+		validEmail: true,
+		isButtonDisabled: false,
+		usernamePattern: /users.users_username_unique/i,
+		emailPattern: /users.users_email_unique/i,
 	}),
 	mounted() {
 		this.findUsers({ query: {} });
@@ -231,10 +319,24 @@ export default {
 			if (this.newEmail != '') {
 				user.email = this.newEmail;
 			}
-			user.save().then(() => {
-				this.cancelUpdate();
-				alert('Account updated Successfully!');
-			});
+			user
+				.save()
+				.then(() => {
+					this.cancelUpdate();
+					alert('Account updated Successfully!');
+				})
+				.catch((error) => {
+					if (error.message.match(this.usernamePattern)) {
+						this.duplicateUsername = true;
+					} else {
+						this.duplicateUsername = false;
+					}
+					if (error.message.match(this.emailPattern)) {
+						this.duplicateEmail = true;
+					} else {
+						this.duplicateEmail = false;
+					}
+				});
 		},
 		toggleUsernameEdit() {
 			this.usernameEdit = true;
@@ -262,6 +364,27 @@ export default {
 			this.cancelUsernameEdit();
 			this.cancelEmailEdit();
 		},
+		checkValidation() {
+			if (this.validUsername === true && this.validEmail === true) {
+				this.isButtonDisabled = false;
+			} else {
+				this.isButtonDisabled = true;
+			}
+		},
+		validateUserRules(value) {
+			if (/^[A-Za-z][0-9a-zA-Z]{3,11}$/i.test(value)) {
+				this.validUsername = true;
+			} else {
+				this.validUsername = false;
+			}
+		},
+		validateEmailRules(value) {
+			if (/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(value)) {
+				this.validEmail = true;
+			} else {
+				this.validEmail = false;
+			}
+		},
 	},
 	computed: {
 		...mapGetters('messages', { findMessagesInStore: 'find' }),
@@ -271,6 +394,18 @@ export default {
 		...mapGetters('users', { findUsersInStore: 'find' }),
 		users() {
 			return this.findUsersInStore({ query: {} }).data;
+		},
+	},
+	watch: {
+		newUsername(value) {
+			this.newUsername = value;
+			this.validateUserRules(value);
+			this.checkValidation();
+		},
+		newEmail(value) {
+			this.newEmail = value;
+			this.validateEmailRules(value);
+			this.checkValidation();
 		},
 	},
 };
