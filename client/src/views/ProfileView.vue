@@ -5,9 +5,13 @@
 		>
 			<h1 class="text-3xl font-bold text-blue-600 p-6 underline">My Profile</h1>
 			<div class="mb-6 p-3 flex justify-center">
-				<div class="relative flex gap-2" v-for="user in users" :key="user.id">
-					<div class="flex self-center">Username:</div>
-					<div v-if="!usernameEdit" class="mx-4 mr-16">
+				<div
+					class="relative flex flex-row gap-2"
+					v-for="user in users"
+					:key="user.id"
+				>
+					<div v-if="!usernameEdit" class="flex gap-3">
+						<div class="flex self-center">Username:</div>
 						{{ user.username }}
 					</div>
 					<div v-else>
@@ -28,19 +32,19 @@
 						<div v-else class="mt-10">
 							<div class="relative">
 								<input
-								v-model="newUsername"
-								type="text"
-								id="username"
-								class="block py-2.5 px-0 w-full text-sm text-black bg-transparent border-0 border-b-2 border-red-300 appearance-none focus:outline-none focus:ring-0 focus:border-red-600 peer"
-								placeholder=" "
-							/>
-							<label
-								for="username"
-								class="absolute text-sm text-red-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-red-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1"
-								>New Username</label
-							>
+									v-model="newUsername"
+									type="text"
+									id="username"
+									class="block py-2.5 px-0 w-full text-sm text-black bg-transparent border-0 border-b-2 border-red-300 appearance-none focus:outline-none focus:ring-0 focus:border-red-600 peer"
+									placeholder=" "
+								/>
+								<label
+									for="username"
+									class="absolute text-sm text-red-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-red-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1"
+									>New Username</label
+								>
 							</div>
-							
+
 							<div class="flex justify-center mt-4">
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
@@ -102,11 +106,11 @@
 			</div>
 			<div class="mb-6 flex justify-center">
 				<div class="relative flex gap-4" v-for="user in users" :key="user.id">
-					<div class="flex self-center">Email:</div>
-					<div v-if="!emailEdit" class="">
+					<div v-if="!emailEdit" class="flex gap-3">
+						<div class="flex self-center">Email:</div>
 						{{ user.email }}
 					</div>
-							<div v-else>
+					<div v-else>
 						<div class="relative" v-if="!duplicateEmail">
 							<input
 								v-model="newEmail"
@@ -124,19 +128,19 @@
 						<div class="mt-10" v-else>
 							<div class="relative">
 								<input
-								v-model="newEmail"
-								type="text"
-								id="email"
-								class="block py-2.5 px-0 w-full text-sm text-black bg-transparent border-0 border-b-2 border-red-300 appearance-none focus:outline-none focus:ring-0 focus:border-red-600 peer"
-								placeholder=" "
-							/>
-							<label
-								for="email"
-								class="absolute text-sm text-red-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-red-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1"
-								>New Email</label
-							>
+									v-model="newEmail"
+									type="text"
+									id="email"
+									class="block py-2.5 px-0 w-full text-sm text-black bg-transparent border-0 border-b-2 border-red-300 appearance-none focus:outline-none focus:ring-0 focus:border-red-600 peer"
+									placeholder=" "
+								/>
+								<label
+									for="email"
+									class="absolute text-sm text-red-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-red-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1"
+									>New Email</label
+								>
 							</div>
-							
+
 							<div class="flex gap-2 justify-center mt-3">
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
