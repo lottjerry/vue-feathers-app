@@ -15,37 +15,83 @@
 						{{ user.username }}
 					</div>
 					<div v-else>
-						<div class="relative" v-if="!duplicateUsername">
-							<input
-								v-model="newUsername"
-								type="text"
-								id="username"
-								class="block py-2.5 px-0 w-full text-sm text-black bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-								placeholder=" "
-							/>
-							<label
-								for="username"
-								class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1"
-								>New Username</label
-							>
-						</div>
-						<div v-else class="mt-10">
+						<div v-if="!duplicateUsername">
 							<div class="relative">
 								<input
 									v-model="newUsername"
 									type="text"
 									id="username"
-									class="block py-2.5 px-0 w-full text-sm text-black bg-transparent border-0 border-b-2 border-red-300 appearance-none focus:outline-none focus:ring-0 focus:border-red-600 peer"
+									class="block py-2.5 px-0 w-full text-sm text-black bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
 									placeholder=" "
 								/>
 								<label
 									for="username"
-									class="absolute text-sm text-red-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-red-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1"
+									class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1"
 									>New Username</label
 								>
 							</div>
 
-							<div class="flex justify-center mt-4">
+							<div v-if="!validUsername" class="flex gap-1 justify-center mt-3">
+								<p class="text-orange-600">Invalid Username.</p>
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									class="stroke-orange-600 flex self-center hover:cursor-pointer"
+									width="18"
+									height="18"
+									viewBox="0 0 30 30"
+									fill="none"
+									stroke="#000000"
+									stroke-width="2"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+								>
+									<circle cx="12" cy="12" r="10"></circle>
+									<path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+									<line x1="12" y1="17" x2="12.01" y2="17"></line>
+								</svg>
+							</div>
+						</div>
+						<div v-else>
+							<div>
+								<div class="relative">
+									<input
+										v-model="newUsername"
+										type="text"
+										id="username"
+										class="block py-2.5 px-0 w-full text-sm text-black bg-transparent border-0 border-b-2 border-red-300 appearance-none focus:outline-none focus:ring-0 focus:border-red-600 peer"
+										placeholder=" "
+									/>
+									<label
+										for="username"
+										class="absolute text-sm text-red-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-red-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1"
+										>New Username</label
+									>
+								</div>
+								<div
+									v-if="!validUsername"
+									class="flex gap-1 justify-center mt-3"
+								>
+									<p class="text-orange-600">Invalid Username.</p>
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										class="stroke-orange-600 flex self-center hover:cursor-pointer"
+										width="18"
+										height="18"
+										viewBox="0 0 30 30"
+										fill="none"
+										stroke="#000000"
+										stroke-width="2"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+									>
+										<circle cx="12" cy="12" r="10"></circle>
+										<path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+										<line x1="12" y1="17" x2="12.01" y2="17"></line>
+									</svg>
+								</div>
+							</div>
+
+							<div class="flex justify-center mt-4 gap-2">
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
 									class="stroke-red-600"
@@ -111,21 +157,42 @@
 						{{ user.email }}
 					</div>
 					<div v-else>
-						<div class="relative" v-if="!duplicateEmail">
-							<input
-								v-model="newEmail"
-								type="text"
-								id="email"
-								class="block py-2.5 px-0 w-full text-sm text-black bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-								placeholder=" "
-							/>
-							<label
-								for="email"
-								class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1"
-								>New Email</label
-							>
+						<div v-if="!duplicateEmail">
+							<div class="relative">
+								<input
+									v-model="newEmail"
+									type="text"
+									id="email"
+									class="block py-2.5 px-0 w-full text-sm text-black bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+									placeholder=" "
+								/>
+								<label
+									for="email"
+									class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1"
+									>New Email</label
+								>
+							</div>
+							<div v-if="!validEmail" class="flex gap-1 justify-center mt-3">
+								<p class="text-orange-600">Invalid Email.</p>
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									class="stroke-orange-600 flex self-center hover:cursor-pointer"
+									width="18"
+									height="18"
+									viewBox="0 0 30 30"
+									fill="none"
+									stroke="#000000"
+									stroke-width="2"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+								>
+									<circle cx="12" cy="12" r="10"></circle>
+									<path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+									<line x1="12" y1="17" x2="12.01" y2="17"></line>
+								</svg>
+							</div>
 						</div>
-						<div class="mt-10" v-else>
+						<div v-else>
 							<div class="relative">
 								<input
 									v-model="newEmail"
@@ -140,7 +207,25 @@
 									>New Email</label
 								>
 							</div>
-
+							<div v-if="!validEmail" class="flex gap-1 justify-center mt-3">
+								<p class="text-orange-600">Invalid Email.</p>
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									class="stroke-orange-600 flex self-center hover:cursor-pointer"
+									width="18"
+									height="18"
+									viewBox="0 0 30 30"
+									fill="none"
+									stroke="#000000"
+									stroke-width="2"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+								>
+									<circle cx="12" cy="12" r="10"></circle>
+									<path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+									<line x1="12" y1="17" x2="12.01" y2="17"></line>
+								</svg>
+							</div>
 							<div class="flex gap-2 justify-center mt-3">
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
@@ -260,8 +345,9 @@
 					:key="user.id"
 				>
 					<button
+						v-bind:disabled="isButtonDisabled"
 						@click="updateUser(user.id)"
-						class="border-2 border-blue-600 bg-white hover:bg-blue-600 text-blue-600 hover:text-white font-bold py-1 px-2 rounded hover:cursor-pointer focus:outline-none focus:shadow-outline transition ease-in-out"
+						class="border-2 border-blue-600 bg-white hover:bg-blue-600 text-blue-600 hover:text-white font-bold py-1 px-2 rounded hover:cursor-pointer focus:outline-none focus:shadow-outline transition ease-in-out disabled:bg-gray-400 disabled:border-gray-400 disabled:text-gray-500 disabled:cursor-not-allowed"
 					>
 						Update
 					</button>
