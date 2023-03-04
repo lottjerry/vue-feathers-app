@@ -396,6 +396,7 @@ export default {
 			const { User } = this.$FeathersVuex;
 			const user = new User({ id: userId });
 			user.remove().then(() => {
+				this.deleteAlert();
 				this.$router.go('/');
 			});
 		},
@@ -419,7 +420,7 @@ export default {
 				.save()
 				.then(() => {
 					this.cancelUpdate();
-					alert('Account updated Successfully!');
+					this.showAlert();
 					this.newUsername = undefined;
 					this.newEmail = undefined;
 				})
@@ -516,6 +517,12 @@ export default {
 					this.validEmail = false;
 				}
 			}
+		},
+		showAlert() {
+			this.$swal('Success!', 'Your Account has been updated!', 'success');
+		},
+		deleteAlert() {
+			this.$swal('Success!', 'Your Account has been deleted!', 'success');
 		},
 	},
 	computed: {

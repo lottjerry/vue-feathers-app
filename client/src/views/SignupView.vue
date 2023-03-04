@@ -312,6 +312,7 @@ export default {
 			user
 				.save()
 				.then(() => {
+					this.showAlert();
 					this.login();
 				})
 				.catch((error) => {
@@ -392,6 +393,9 @@ export default {
 			} else {
 				this.validPassword = false;
 			}
+		},
+		showAlert() {
+			this.$swal('Success!', 'Your Account has been created!', 'success');
 		},
 	},
 	watch: {
