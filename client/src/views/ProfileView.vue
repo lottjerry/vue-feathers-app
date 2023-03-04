@@ -52,43 +52,38 @@
 							</div>
 						</div>
 						<div v-else>
-							<div>
-								<div class="relative">
-									<input
-										v-model="newUsername"
-										type="text"
-										id="username"
-										class="block py-2.5 px-0 w-full text-sm text-black bg-transparent border-0 border-b-2 border-red-300 appearance-none focus:outline-none focus:ring-0 focus:border-red-600 peer"
-										placeholder=" "
-									/>
-									<label
-										for="username"
-										class="absolute text-sm text-red-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-red-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1"
-										>New Username</label
-									>
-								</div>
-								<div
-									v-if="!validUsername"
-									class="flex gap-1 justify-center mt-3"
+							<div class="relative">
+								<input
+									v-model="newUsername"
+									type="text"
+									id="username"
+									class="block py-2.5 px-0 w-full text-sm text-black bg-transparent border-0 border-b-2 border-red-300 appearance-none focus:outline-none focus:ring-0 focus:border-red-600 peer"
+									placeholder=" "
+								/>
+								<label
+									for="username"
+									class="absolute text-sm text-red-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-red-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1"
+									>New Username</label
 								>
-									<p class="text-orange-600">Invalid Username.</p>
-									<svg
-										xmlns="http://www.w3.org/2000/svg"
-										class="stroke-orange-600 flex self-center hover:cursor-pointer"
-										width="18"
-										height="18"
-										viewBox="0 0 30 30"
-										fill="none"
-										stroke="#000000"
-										stroke-width="2"
-										stroke-linecap="round"
-										stroke-linejoin="round"
-									>
-										<circle cx="12" cy="12" r="10"></circle>
-										<path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
-										<line x1="12" y1="17" x2="12.01" y2="17"></line>
-									</svg>
-								</div>
+							</div>
+							<div v-if="!validUsername" class="flex gap-1 justify-center mt-3">
+								<p class="text-orange-600">Invalid Username.</p>
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									class="stroke-orange-600 flex self-center hover:cursor-pointer"
+									width="18"
+									height="18"
+									viewBox="0 0 30 30"
+									fill="none"
+									stroke="#000000"
+									stroke-width="2"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+								>
+									<circle cx="12" cy="12" r="10"></circle>
+									<path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+									<line x1="12" y1="17" x2="12.01" y2="17"></line>
+								</svg>
 							</div>
 
 							<div class="flex justify-center mt-4 gap-2">
@@ -414,7 +409,7 @@ export default {
 			} else if (this.newUsername == undefined) {
 				if (this.newUsername != '' && this.newEmail != '') {
 					user.email = this.newEmail;
-				} 
+				}
 			} else {
 				user.username = this.newUsername;
 				user.email = this.newEmail;
@@ -505,17 +500,21 @@ export default {
 			}
 		},
 		validateUserRules(value) {
-			if (/^[A-Za-z][0-9a-zA-Z]{3,11}$/i.test(value)) {
-				this.validUsername = true;
-			} else {
-				this.validUsername = false;
+			if (this.usernameEdit) {
+				if (/^[A-Za-z][0-9a-zA-Z]{3,11}$/i.test(value)) {
+					this.validUsername = true;
+				} else {
+					this.validUsername = false;
+				}
 			}
 		},
 		validateEmailRules(value) {
-			if (/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(value)) {
-				this.validEmail = true;
-			} else {
-				this.validEmail = false;
+			if (this.emailEdit) {
+				if (/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(value)) {
+					this.validEmail = true;
+				} else {
+					this.validEmail = false;
+				}
 			}
 		},
 	},
