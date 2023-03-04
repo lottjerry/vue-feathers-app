@@ -402,11 +402,11 @@ export default {
 		updateUser(userId) {
 			const { User } = this.$FeathersVuex;
 			const user = new User({ id: userId });
-			if (this.newEmail == undefined) {
+			if (this.newEmail == '') {
 				if (this.newUsername != '' && this.newEmail != '') {
 					user.username = this.newUsername;
 				}
-			} else if (this.newUsername == undefined) {
+			} else if (this.newUsername == '') {
 				if (this.newUsername != '' && this.newEmail != '') {
 					user.email = this.newEmail;
 				}
