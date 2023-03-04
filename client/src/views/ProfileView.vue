@@ -370,18 +370,22 @@ import { mapActions, mapGetters } from 'vuex';
 export default {
 	name: 'ProfileView',
 	data: () => ({
-		newUsername: '',
-		newEmail: '',
+		newUsername: undefined,
+		newEmail: undefined,
 		usernameEdit: false,
 		emailEdit: false,
 		promptDelete: false,
-		duplicateEmail: undefined,
-		duplicateUsername: undefined,
+		duplicateEmail: false,
+		duplicateUsername: false,
 		validUsername: true,
 		validEmail: true,
-		isButtonDisabled: false,
+		isButtonDisabled: true,
 		usernamePattern: /users.users_username_unique/i,
 		emailPattern: /users.users_email_unique/i,
+		getEmail: '',
+		getUsername: 'undefined',
+		invalidUsernames: [],
+		invalidEmails: [],
 	}),
 	mounted() {
 		this.findUsers({ query: {} });
@@ -403,28 +407,47 @@ export default {
 		updateUser(userId) {
 			const { User } = this.$FeathersVuex;
 			const user = new User({ id: userId });
-			if (this.newUsername != '') {
+			if (this.newEmail == undefined) {
+				if (this.newUsername != '' && this.newEmail != '') {
+					user.username = this.newUsername;
+				}
+			} else if (this.newUsername == undefined) {
+				if (this.newUsername != '' && this.newEmail != '') {
+					user.email = this.newEmail;
+				} 
+			} else {
 				user.username = this.newUsername;
-			}
-			if (this.newEmail != '') {
 				user.email = this.newEmail;
 			}
+
 			user
 				.save()
 				.then(() => {
 					this.cancelUpdate();
 					alert('Account updated Successfully!');
+					this.newUsername = '';
+					this.newEmail = '';
 				})
 				.catch((error) => {
 					if (error.message.match(this.usernamePattern)) {
 						this.duplicateUsername = true;
+						const firstSplit = error.message.split('- ')[1];
+						this.getUsername = firstSplit.split("'")[1];
+						this.isButtonDisabled = true;
+						this.invalidUsernames.push(this.getUsername);
 					} else {
 						this.duplicateUsername = false;
+						this.invalidUsernames = [];
 					}
 					if (error.message.match(this.emailPattern)) {
 						this.duplicateEmail = true;
+						const firstSplit = error.message.split('- ')[1];
+						this.getEmail = firstSplit.split("'")[1];
+						this.isButtonDisabled = true;
+						this.invalidEmails.push(this.getEmail);
 					} else {
 						this.duplicateEmail = false;
+						this.invalidEmails = [];
 					}
 				});
 		},
@@ -455,8 +478,28 @@ export default {
 			this.cancelEmailEdit();
 		},
 		checkValidation() {
-			if (this.validUsername === true && this.validEmail === true) {
-				this.isButtonDisabled = false;
+			if (this.invalidUsernames.includes(this.newUsername)) {
+				this.duplicateUsername = true;
+			} else {
+				this.duplicateUsername = false;
+			}
+
+			if (this.invalidEmails.includes(this.newEmail)) {
+				this.duplicateEmail = true;
+			} else {
+				this.duplicateEmail = false;
+			}
+
+			if (this.duplicateUsername === false && this.duplicateEmail === false) {
+				if (this.newUsername !== undefined || this.newEmail !== undefined) {
+					if (this.validUsername === true && this.validEmail === true) {
+						this.isButtonDisabled = false;
+					} else {
+						this.isButtonDisabled = true;
+					}
+				} else {
+					this.isButtonDisabled = true;
+				}
 			} else {
 				this.isButtonDisabled = true;
 			}
