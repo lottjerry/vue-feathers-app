@@ -282,14 +282,18 @@ export default {
 				email: undefined,
 				password: undefined,
 			},
-			duplicateEmail: undefined,
-			duplicateUsername: undefined,
+			duplicateEmail: false,
+			duplicateUsername: false,
 			validUsername: true,
 			validEmail: true,
 			validPassword: true,
-			isButtonDisabled: false,
+			isButtonDisabled: true,
 			usernamePattern: /users.users_username_unique/i,
 			emailPattern: /users.users_email_unique/i,
+			getEmail: '',
+			getUsername: 'undefined',
+			invalidUsernames: [],
+			invalidEmails: [],
 		};
 	},
 	methods: {
@@ -313,19 +317,57 @@ export default {
 				.catch((error) => {
 					if (error.message.match(this.usernamePattern)) {
 						this.duplicateUsername = true;
+						const firstSplit = error.message.split('- ')[1];
+						this.getUsername = firstSplit.split("'")[1];
+						this.isButtonDisabled = true;
+						this.invalidUsernames.push(this.getUsername);
 					} else {
 						this.duplicateUsername = false;
+						this.invalidUsernames = [];
 					}
 					if (error.message.match(this.emailPattern)) {
 						this.duplicateEmail = true;
+						const firstSplit = error.message.split('- ')[1];
+						this.getEmail = firstSplit.split("'")[1];
+						this.isButtonDisabled = true;
+						this.invalidEmails.push(this.getEmail);
 					} else {
 						this.duplicateEmail = false;
+						this.invalidEmails = [];
 					}
 				});
 		},
 		checkValidation() {
-			if (this.validUsername === true && this.validEmail === true && this.validPassword === true) {
-				this.isButtonDisabled = false;
+			if (this.invalidUsernames.includes(this.user.username)) {
+				this.duplicateUsername = true;
+			} else {
+				this.duplicateUsername = false;
+			}
+
+			if (this.invalidEmails.includes(this.user.email)) {
+				this.duplicateEmail = true;
+			} else {
+				this.duplicateEmail = false;
+			}
+
+			if (this.duplicateUsername === false && this.duplicateEmail === false) {
+				if (
+					this.user.username !== undefined &&
+					this.user.email !== undefined &&
+					this.user.password !== undefined
+				) {
+					if (
+						this.validUsername === true &&
+						this.validEmail === true &&
+						this.validPassword === true
+					) {
+						this.isButtonDisabled = false;
+					} else {
+						this.isButtonDisabled = true;
+					}
+				} else {
+					this.isButtonDisabled = true;
+				}
 			} else {
 				this.isButtonDisabled = true;
 			}
@@ -356,17 +398,17 @@ export default {
 		'user.username'(value) {
 			this.user.username = value;
 			this.validateUserRules(value);
-			this.checkValidation()
+			this.checkValidation();
 		},
 		'user.email'(value) {
 			this.user.email = value;
 			this.validateEmailRules(value);
-				this.checkValidation()
+			this.checkValidation();
 		},
 		'user.password'(value) {
 			this.user.password = value;
 			this.validatePasswordRules(value);
-				this.checkValidation()
+			this.checkValidation();
 		},
 	},
 };
