@@ -378,7 +378,7 @@ export default {
 		usernamePattern: /users.users_username_unique/i,
 		emailPattern: /users.users_email_unique/i,
 		getEmail: '',
-		getUsername: 'undefined',
+		getUsername: '',
 		invalidUsernames: [],
 		invalidEmails: [],
 	}),
@@ -402,11 +402,11 @@ export default {
 		updateUser(userId) {
 			const { User } = this.$FeathersVuex;
 			const user = new User({ id: userId });
-			if (this.newEmail == '') {
+			if (this.newEmail == undefined) {
 				if (this.newUsername != '' && this.newEmail != '') {
 					user.username = this.newUsername;
 				}
-			} else if (this.newUsername == '') {
+			} else if (this.newUsername == undefined) {
 				if (this.newUsername != '' && this.newEmail != '') {
 					user.email = this.newEmail;
 				}
@@ -420,8 +420,8 @@ export default {
 				.then(() => {
 					this.cancelUpdate();
 					alert('Account updated Successfully!');
-					this.newUsername = '';
-					this.newEmail = '';
+					this.newUsername = undefined;
+					this.newEmail = undefined;
 				})
 				.catch((error) => {
 					if (error.message.match(this.usernamePattern)) {
