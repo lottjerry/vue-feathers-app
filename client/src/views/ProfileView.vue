@@ -521,8 +521,21 @@ export default {
 		showAlert() {
 			this.$swal('Success!', 'Your Account has been updated!', 'success');
 		},
-		deleteAlert() {
-			this.$swal('Success!', 'Your Account has been deleted!', 'success');
+		deleteWarn(userId) {
+			this.$swal({
+				title: 'Are you sure?',
+				text: "You won't be able to revert this!",
+				icon: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+				confirmButtonText: 'Yes, delete my account!',
+			}).then((result) => {
+				if (result.isConfirmed) {
+					this.deleteUser(userId);
+					this.$swal('Deleted!', 'Your account has been deleted.', 'success');
+				}
+			});
 		},
 	},
 	computed: {
