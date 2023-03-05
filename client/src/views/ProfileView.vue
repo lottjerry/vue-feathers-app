@@ -279,54 +279,10 @@
 					</svg>
 				</div>
 			</div>
-			<!-- PROMPT DELTE -->
-			<div
-				class="flex justify-center p-5"
-				v-if="promptDelete && !(usernameEdit || emailEdit)"
-			>
-				<div class="flex flex-col gap-5" v-for="user in users" :key="user.id">
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						class="stroke-red-600 self-center"
-						width="40"
-						height="40"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="#000000"
-						stroke-width="2"
-						stroke-linecap="round"
-						stroke-linejoin="round"
-					>
-						<polygon
-							points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"
-						></polygon>
-						<line x1="12" y1="8" x2="12" y2="12"></line>
-						<line x1="12" y1="16" x2="12.01" y2="16"></line>
-					</svg>
-					<h1 class="text-red-600 text-l">
-						Are you sure you want to delete your account ?
-					</h1>
-					<div class="flex gap-5 justify-center">
-						<button
-							@click="deleteUser(user.id)"
-							class="border-2 border-green-600 bg-white hover:bg-green-600 text-green-600 hover:text-white font-bold py-1 px-2 w-20 rounded focus:outline-none focus:shadow-outline transition ease-in-out"
-						>
-							Yes
-						</button>
-						<button
-							@click="cancelDelete()"
-							class="border-2 border-red-600 bg-white hover:bg-red-600 text-red-600 hover:text-white font-bold py-1 px-2 w-20 rounded focus:outline-none focus:shadow-outline transition ease-in-out"
-						>
-							No
-						</button>
-					</div>
-				</div>
-			</div>
-			<!-- END PROMPT DELETE -->
-			<div v-if="!promptDelete">
+			<div v-for="user in users" :key="user.id">
 				<button
 					v-if="!(usernameEdit || emailEdit)"
-					@click="deletePrompt()"
+					@click="deleteWarn(user.id)"
 					class="border-2 border-red-600 bg-white hover:bg-red-600 text-red-600 hover:text-white font-bold py-1 px-2 rounded hover:cursor-pointer focus:outline-none focus:shadow-outline transition ease-in-out mx-10 my-16"
 				>
 					Delete Account
@@ -396,8 +352,7 @@ export default {
 			const { User } = this.$FeathersVuex;
 			const user = new User({ id: userId });
 			user.remove().then(() => {
-				this.deleteAlert();
-				this.$router.go('/');
+				//this.$router.go('/');
 			});
 		},
 		updateUser(userId) {
@@ -523,7 +478,7 @@ export default {
 		},
 		deleteWarn(userId) {
 			this.$swal({
-				title: 'Are you sure?',
+				title: 'Are you sure you want to delete your account?',
 				text: "You won't be able to revert this!",
 				icon: 'warning',
 				showCancelButton: true,
@@ -533,7 +488,13 @@ export default {
 			}).then((result) => {
 				if (result.isConfirmed) {
 					this.deleteUser(userId);
-					this.$swal('Deleted!', 'Your account has been deleted.', 'success');
+					this.$swal({
+						title: 'Your account has been deleted.',
+						icon: 'success',
+						confirmButtonText: 'Go To Login',
+					}).then(() => {
+						this.$router.go('/');
+					});
 				}
 			});
 		},
