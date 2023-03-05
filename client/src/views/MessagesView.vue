@@ -182,8 +182,15 @@
 			</div>
 		</div>
 		<button
-			@click="deleteAllMessages()"
+		v-if="this.messages.length"
+			@click="deleteWarn()"
 			class="border-2 border-red-600 bg-white hover:bg-red-600 text-red-600 hover:text-white font-bold py-1 px-8 rounded focus:outline-none focus:shadow-outline transition ease-in-out"
+		>
+			Delete All
+		</button>
+		<button
+		v-else
+			class="border-2 border-gray-400 bg-gray-400 hover:cursor-not-allowed text-gray-500 font-bold py-1 px-8 rounded"
 		>
 			Delete All
 		</button>
@@ -216,7 +223,7 @@ export default {
 			const { Message } = this.$FeathersVuex;
 			const message = new Message(this.message);
 			message.save().then(() => {
-				message.messageBody = '';
+				message.messageBody = undefined;
 			});
 		},
 		deleteMessage(messageId) {
@@ -257,11 +264,27 @@ export default {
 			}
 		},
 		checkValidation() {
-			if (this.validMessage === true) {
+			if (this.validMessage === true && this.message.messageBody != undefined) {
 				this.isButtonDisabled = false;
 			} else {
 				this.isButtonDisabled = true;
 			}
+		},
+		deleteWarn() {
+			this.$swal({
+				title: 'Are you sure?',
+				text: "You won't be able to revert this!",
+				icon: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+				confirmButtonText: 'Yes, delete all messages!',
+			}).then((result) => {
+				if (result.isConfirmed) {
+					this.deleteAllMessages();
+					this.$swal('Deleted!', 'Your messages has been deleted.', 'success');
+				}
+			});
 		},
 	},
 	computed: {
