@@ -89,7 +89,7 @@
 				</p>
 				<div
 					v-if="selected === message.id"
-					class="flex self-center text-blue-600 m-auto justify-start"
+					class="flex flex-col self-center text-blue-600 m-auto justify-start"
 				>
 					<div class="relative">
 						<div class="relative">
@@ -106,6 +106,30 @@
 								>Update Message</label
 							>
 						</div>
+					</div>
+					<div
+						v-if="!validNewMessage"
+						class="flex gap-1 justify-center my-5 self-center"
+					>
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							class="stroke-orange-400"
+							width="24"
+							height="24"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="#000000"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+						>
+							<polygon
+								points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"
+							></polygon>
+							<line x1="12" y1="8" x2="12" y2="12"></line>
+							<line x1="12" y1="16" x2="12.01" y2="16"></line>
+						</svg>
+						<p class="text-orange-600">Message can't be empty.</p>
 					</div>
 				</div>
 				<div v-if="!(selected === message.id)" class="flex gap-5">
@@ -148,6 +172,7 @@
 				</div>
 				<div v-if="selected === message.id" class="flex gap-5">
 					<svg
+						v-if="(newMessage)"
 						@click="updateMessage(message.id)"
 						xmlns="http://www.w3.org/2000/svg"
 						class="hover:stroke-green-600 hover:cursor-pointer flex self-center"
@@ -161,6 +186,22 @@
 						stroke-linejoin="round"
 					>
 						<polyline points="20 6 9 17 4 12"></polyline>
+					</svg>
+					<svg
+						v-else
+						xmlns="http://www.w3.org/2000/svg"
+						class="stroke-gray-400 flex self-center hover:cursor-not-allowed"
+						width="30"
+						height="30"
+						viewBox="0 0 30 30"
+						fill="none"
+						stroke="#000000"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					>
+						<circle cx="12" cy="12" r="10"></circle>
+						<line x1="4.93" y1="4.93" x2="19.07" y2="19.07"></line>
 					</svg>
 					<svg
 						@click="cancelEdit()"
@@ -182,14 +223,14 @@
 			</div>
 		</div>
 		<button
-		v-if="this.messages.length"
+			v-if="this.messages.length"
 			@click="deleteWarn()"
 			class="border-2 border-red-600 bg-white hover:bg-red-600 text-red-600 hover:text-white font-bold py-1 px-8 rounded focus:outline-none focus:shadow-outline transition ease-in-out"
 		>
 			Delete All
 		</button>
 		<button
-		v-else
+			v-else
 			class="border-2 border-gray-400 bg-gray-400 hover:cursor-not-allowed text-gray-500 font-bold py-1 px-8 rounded"
 		>
 			Delete All
@@ -210,7 +251,9 @@ export default {
 		edit: false,
 		selected: '',
 		validMessage: true,
+		validNewMessage: true,
 		isButtonDisabled: true,
+		isNewButtonDisabled: true,
 	}),
 	mounted() {
 		this.findMessages({ query: {} });
@@ -250,11 +293,11 @@ export default {
 			const message = new Message({ id: messageId });
 			this.selected = message.id;
 			this.edit = true;
-			this.newMessage = '';
+			this.newMessage = undefined;
 		},
 		cancelEdit() {
 			this.selected = '';
-			this.newMessage = '';
+			this.newMessage = undefined;
 		},
 		validateMessageRules(value) {
 			if (/^.+/.test(value)) {
@@ -263,11 +306,25 @@ export default {
 				this.validMessage = false;
 			}
 		},
+		validateNewMessageRules(value) {
+			if (/^.+/.test(value)) {
+				this.validNewMessage = true;
+			} else {
+				this.validNewMessage = false;
+			}
+		},
 		checkValidation() {
 			if (this.validMessage === true && this.message.messageBody != undefined) {
 				this.isButtonDisabled = false;
 			} else {
 				this.isButtonDisabled = true;
+			}
+		},
+		checkNewValidation() {
+			if (this.validNewMessage === true && this.newMessage != '') {
+				this.isNewButtonDisabled = false;
+			} else {
+				this.isNewButtonDisabled = true;
 			}
 		},
 		deleteWarn() {
@@ -302,6 +359,11 @@ export default {
 			this.message.messageBody = value;
 			this.validateMessageRules(value);
 			this.checkValidation();
+		},
+		newMessage(value) {
+			this.newMessage = value;
+			this.validateNewMessageRules(value);
+			this.checkNewValidation();
 		},
 	},
 };
