@@ -411,12 +411,14 @@ export default {
 			this.promptDelete = false;
 		},
 		cancelUsernameEdit() {
-			this.newUsername = '';
+			this.newUsername = undefined;
 			this.usernameEdit = false;
+			this.validUsername = true;
 		},
 		cancelEmailEdit() {
-			this.newEmail = '';
+			this.newEmail = undefined;
 			this.emailEdit = false;
+			this.validEmail = true;
 		},
 		deletePrompt() {
 			this.promptDelete = true;
@@ -456,7 +458,7 @@ export default {
 			}
 		},
 		validateUserRules(value) {
-			if (this.usernameEdit) {
+			if (this.usernameEdit == true) {
 				if (/^[A-Za-z][0-9a-zA-Z]{3,11}$/i.test(value)) {
 					this.validUsername = true;
 				} else {
@@ -465,7 +467,7 @@ export default {
 			}
 		},
 		validateEmailRules(value) {
-			if (this.emailEdit) {
+			if (this.emailEdit == true) {
 				if (/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(value)) {
 					this.validEmail = true;
 				} else {
