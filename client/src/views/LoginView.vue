@@ -7,8 +7,12 @@
 					@submit.prevent="login"
 					class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
 				>
-					<FloatingInput v-model="user.username" label="Username" type="text"/>
-					<FloatingInput v-model="user.password" label="Password" type="password"/>
+					<FloatingInput v-model="user.username" label="Username" type="text" />
+					<FloatingInput
+						v-model="user.password"
+						label="Password"
+						type="password"
+					/>
 					<div v-if="errorMessage" class="flex gap-2 justify-center mb-4">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"

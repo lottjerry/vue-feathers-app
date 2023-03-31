@@ -8,24 +8,13 @@
 					class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
 				>
 					<!-- USERNAME BEGIN -->
-					<div class="mb-4" v-if="!duplicateUsername">
-						<div class="relative">
-							<div class="relative">
-								<input
-									type="text"
-									id="username"
-									v-model="user.username"
-									class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 rounded-lg border-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-									placeholder=" "
-								/>
-								<label
-									for="username"
-									class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1"
-									>Username</label
-								>
-							</div>
-						</div>
-						<div v-if="!validUsername" class="flex gap-1 justify-center">
+					<div v-if="!duplicateUsername">
+						<FloatingInput
+							v-model="user.username"
+							label="Username"
+							type="text"
+						/>
+						<div v-if="!validUsername" class="flex gap-2 justify-center mb-4">
 							<p class="text-orange-600">Invalid Username.</p>
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
@@ -45,24 +34,13 @@
 							</svg>
 						</div>
 					</div>
-					<div class="mb-4" v-else>
-						<div class="relative">
-							<div class="relative">
-								<input
-									type="text"
-									id="username"
-									v-model="user.username"
-									class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 rounded-lg border-2 border-red-300 appearance-none focus:outline-none focus:ring-0 focus:border-red-600 peer"
-									placeholder=" "
-								/>
-								<label
-									for="username"
-									class="absolute text-sm text-red-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-red-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1"
-									>Username</label
-								>
-							</div>
-						</div>
-						<div class="flex gap-2 justify-center">
+					<div v-else>
+						<FloatingInput
+							v-model="user.username"
+							label="Username"
+							type="text"
+						/>
+						<div class="flex gap-2 justify-center mb-4">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
 								class="stroke-red-600"
@@ -83,7 +61,7 @@
 							</svg>
 							<p class="text-red-600">Username already exists.</p>
 						</div>
-						<div v-if="!validUsername" class="flex gap-1 justify-center">
+						<div v-if="!validUsername" class="flex gap-2 justify-center mb-4">
 							<p class="text-orange-600">Invalid Username.</p>
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
@@ -106,24 +84,9 @@
 					<!-- USERNAME END -->
 
 					<!-- EMAIL BEGIN -->
-					<div class="mb-6" v-if="!duplicateEmail">
-						<div class="relative">
-							<div class="relative">
-								<input
-									type="text"
-									id="email"
-									v-model="user.email"
-									class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 rounded-lg border-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-									placeholder=" "
-								/>
-								<label
-									for="email"
-									class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1"
-									>Email</label
-								>
-							</div>
-						</div>
-						<div v-if="!validEmail" class="flex gap-1 justify-center">
+					<div v-if="!duplicateEmail">
+						<FloatingInput v-model="user.email" label="Email" type="text" />
+						<div v-if="!validEmail" class="flex gap-2 justify-center mb-4">
 							<p class="text-orange-600">Invalid Email.</p>
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
@@ -143,24 +106,9 @@
 							</svg>
 						</div>
 					</div>
-					<div class="mb-6" v-else>
-						<div class="relative">
-							<div class="relative">
-								<input
-									type="text"
-									id="email"
-									v-model="user.email"
-									class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 rounded-lg border-2 border-red-300 appearance-none focus:outline-none focus:ring-0 focus:border-red-600 peer"
-									placeholder=" "
-								/>
-								<label
-									for="email"
-									class="absolute text-sm text-red-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-red-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1"
-									>Email</label
-								>
-							</div>
-						</div>
-						<div class="flex gap-2 justify-center">
+					<div v-else>
+						<FloatingInput v-model="user.email" label="Email" type="text" />
+						<div class="flex gap-2 justify-center mb-4">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
 								class="stroke-red-600"
@@ -181,7 +129,7 @@
 							</svg>
 							<p class="text-red-600">Email already exists.</p>
 						</div>
-						<div v-if="!validEmail" class="flex gap-1 justify-center">
+						<div v-if="!validEmail" class="flex gap-2 justify-center mb-4">
 							<p class="text-orange-600">Invalid Email.</p>
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
@@ -202,48 +150,16 @@
 						</div>
 					</div>
 					<!-- EMAIL END -->
-					<div class="mb-6">
-						<div class="relative">
-							<div class="relative">
-								<input
-									type="password"
-									id="password"
-									v-model="user.password"
-									class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 rounded-lg border-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-									placeholder=" "
-								/>
-								<label
-									for="password"
-									class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1"
-									>Password</label
-								>
-							</div>
-							<div v-if="!validPassword" class="flex gap-1 justify-center">
-								<p class="text-orange-600">
-									Password has to be 8 or more characters long.
-								</p>
-							</div>
-						</div>
+					<FloatingInput
+						v-model="user.password"
+						label="Password"
+						type="password"
+					/>
+					<div v-if="!validPassword" class="flex gap-2 justify-center mb-4">
+						<p class="text-orange-600">
+							Password has to be 8 or more characters long.
+						</p>
 					</div>
-					<!--
-					<div class="mb-6">
-						<div class="relative">
-							<div class="relative">
-								<input
-									type="password"
-									id="confirm_password"
-									class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 rounded-lg border-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-									placeholder=" "
-								/>
-								<label
-									for="confirm_password"
-									class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1"
-									>Confirm Password</label
-								>
-							</div>
-						</div>
-					</div>
-					-->
 					<div class="flex-col items-center">
 						<button
 							v-bind:disabled="isButtonDisabled"
@@ -272,8 +188,12 @@
 
 <script>
 import { mapActions } from 'vuex';
+import FloatingInput from '../components/FloatingInput.vue';
 
 export default {
+	components: {
+		FloatingInput,
+	},
 	name: 'SignupView',
 	data() {
 		return {
