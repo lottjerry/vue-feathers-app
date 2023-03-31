@@ -6,41 +6,19 @@
 					@submit.prevent="createMessage"
 					class="bg-white shadow-md rounded px-8 pt-4 pb-4 mb-4"
 				>
-					<div class="mb-6" v-if="validMessage">
-						<div class="relative">
-							<div class="relative">
-								<input
-									v-model="message.messageBody"
-									type="text"
-									id="messageBody"
-									class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 rounded-lg border-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-									placeholder=" "
-								/>
-								<label
-									for="messageBody"
-									class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1"
-									>New Message</label
-								>
-							</div>
-						</div>
+					<div v-if="validMessage">
+						<FloatingInput
+							v-model="message.messageBody"
+							label="New Message"
+							type="text"
+						/>
 					</div>
-					<div class="mb-6" v-else>
-						<div class="relative">
-							<div class="relative">
-								<input
-									v-model="message.messageBody"
-									type="text"
-									id="messageBody"
-									class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 rounded-lg border-2 border-red-300 appearance-none focus:outline-none focus:ring-0 focus:border-red-600 peer"
-									placeholder=" "
-								/>
-								<label
-									for="messageBody"
-									class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-red-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1"
-									>New Message</label
-								>
-							</div>
-						</div>
+					<div v-else>
+						<FloatingInput
+							v-model="message.messageBody"
+							label="New Message"
+							type="text"
+						/>
 					</div>
 					<div v-if="!validMessage" class="flex gap-1 justify-center mb-5">
 						<svg
@@ -91,22 +69,12 @@
 					v-if="selected === message.id"
 					class="flex flex-col self-center text-blue-600 m-auto justify-start"
 				>
-					<div class="relative">
-						<div class="relative">
-							<input
-								v-model="newMessage"
-								type="text"
-								id="updateMessageBody"
-								class="block px-40 pb-2.5 pt-4 w-full text-sm text-gray-900 rounded-lg border-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-								placeholder=" "
-							/>
-							<label
-								for="updateMessageBody"
-								class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1"
-								>Update Message</label
-							>
-						</div>
-					</div>
+					<FloatingInput
+						v-model="newMessage"
+						label="Update Message"
+						type="text"
+					/>
+					<div class="px-72"></div>
 					<div
 						v-if="!validNewMessage"
 						class="flex gap-1 justify-center my-5 self-center"
@@ -172,7 +140,7 @@
 				</div>
 				<div v-if="selected === message.id" class="flex gap-5">
 					<svg
-						v-if="(newMessage)"
+						v-if="newMessage"
 						@click="updateMessage(message.id)"
 						xmlns="http://www.w3.org/2000/svg"
 						class="hover:stroke-green-600 hover:cursor-pointer flex self-center"
@@ -240,8 +208,12 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
+import FloatingInput from '../components/FloatingInput.vue';
 
 export default {
+	components: {
+		FloatingInput,
+	},
 	name: 'MessagesView',
 	data: () => ({
 		message: {

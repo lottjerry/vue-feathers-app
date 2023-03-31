@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<div class="mb-6">
+		<div class="mb-4">
 			<div class="relative">
 				<div class="relative">
 					<input
