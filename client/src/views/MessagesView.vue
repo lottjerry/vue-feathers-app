@@ -208,7 +208,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import FloatingInputOutlined from '../components/FloatingInputOutlined.vue';
+import FloatingInputOutlined from '../components/floatinginput/FloatingInputOutlined.vue';
 
 export default {
 	components: {
