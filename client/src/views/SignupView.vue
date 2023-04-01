@@ -9,7 +9,7 @@
 				>
 					<!-- USERNAME BEGIN -->
 					<div v-if="!duplicateUsername">
-						<FloatingInput
+						<FloatingInputOutlined
 							v-model="user.username"
 							label="Username"
 							type="text"
@@ -35,7 +35,7 @@
 						</div>
 					</div>
 					<div v-else>
-						<FloatingInput
+						<FloatingInputOutlined
 							v-model="user.username"
 							label="Username"
 							type="text"
@@ -85,7 +85,7 @@
 
 					<!-- EMAIL BEGIN -->
 					<div v-if="!duplicateEmail">
-						<FloatingInput v-model="user.email" label="Email" type="text" />
+						<FloatingInputOutlined v-model="user.email" label="Email" type="text" />
 						<div v-if="!validEmail" class="flex gap-2 justify-center mb-4">
 							<p class="text-orange-600">Invalid Email.</p>
 							<svg
@@ -107,7 +107,7 @@
 						</div>
 					</div>
 					<div v-else>
-						<FloatingInput v-model="user.email" label="Email" type="text" />
+						<FloatingInputOutlined v-model="user.email" label="Email" type="text" />
 						<div class="flex gap-2 justify-center mb-4">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
@@ -150,7 +150,7 @@
 						</div>
 					</div>
 					<!-- EMAIL END -->
-					<FloatingInput
+					<FloatingInputOutlined
 						v-model="user.password"
 						label="Password"
 						type="password"
@@ -188,11 +188,11 @@
 
 <script>
 import { mapActions } from 'vuex';
-import FloatingInput from '../components/FloatingInput.vue';
+import FloatingInputOutlined from '../components/FloatingInputOutlined.vue';
 
 export default {
 	components: {
-		FloatingInput,
+		FloatingInputOutlined,
 	},
 	name: 'SignupView',
 	data() {
