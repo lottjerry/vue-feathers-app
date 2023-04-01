@@ -7,14 +7,14 @@
 					class="bg-white shadow-md rounded px-8 pt-4 pb-4 mb-4"
 				>
 					<div v-if="validMessage">
-						<FloatingInput
+						<FloatingInputOutlined
 							v-model="message.messageBody"
 							label="New Message"
 							type="text"
 						/>
 					</div>
 					<div v-else>
-						<FloatingInput
+						<FloatingInputOutlined
 							v-model="message.messageBody"
 							label="New Message"
 							type="text"
@@ -69,7 +69,7 @@
 					v-if="selected === message.id"
 					class="flex flex-col self-center text-blue-600 m-auto justify-start"
 				>
-					<FloatingInput
+					<FloatingInputOutlined
 						v-model="newMessage"
 						label="Update Message"
 						type="text"
@@ -208,11 +208,11 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import FloatingInput from '../components/FloatingInput.vue';
+import FloatingInputOutlined from '../components/FloatingInputOutlined.vue';
 
 export default {
 	components: {
-		FloatingInput,
+		FloatingInputOutlined,
 	},
 	name: 'MessagesView',
 	data: () => ({
