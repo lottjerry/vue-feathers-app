@@ -7,7 +7,11 @@
 					@submit.prevent="login"
 					class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
 				>
-					<FloatingInputOutlined v-model="user.username" label="Username" type="text" />
+					<FloatingInputOutlined
+						v-model="user.username"
+						label="Username"
+						type="text"
+					/>
 					<FloatingInputOutlined
 						v-model="user.password"
 						label="Password"
@@ -61,12 +65,13 @@
 
 <script>
 import { mapActions } from 'vuex';
-import FloatingInputOutlined from '../components/FloatingInputOutlined.vue';
+import FloatingInputOutlined from '../components/floatinginput/FloatingInputOutlined.vue';
 
 export default {
 	components: {
 		FloatingInputOutlined,
 	},
+
 	name: 'LoginView',
 	data: () => ({
 		user: {

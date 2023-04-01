@@ -35,7 +35,7 @@
 						</div>
 					</div>
 					<div v-else>
-						<FloatingInputOutlined
+						<FloatingInputOutlinedWarning
 							v-model="user.username"
 							label="Username"
 							type="text"
@@ -107,7 +107,7 @@
 						</div>
 					</div>
 					<div v-else>
-						<FloatingInputOutlined v-model="user.email" label="Email" type="text" />
+						<FloatingInputOutlinedWarning v-model="user.email" label="Email" type="text" />
 						<div class="flex gap-2 justify-center mb-4">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
@@ -188,11 +188,13 @@
 
 <script>
 import { mapActions } from 'vuex';
-import FloatingInputOutlined from '../components/FloatingInputOutlined.vue';
+import FloatingInputOutlined from '../components/floatinginput/FloatingInputOutlined.vue';
+import FloatingInputOutlinedWarning from '../components/floatinginput/FloatingInputOutlinedWarning.vue';
 
 export default {
 	components: {
 		FloatingInputOutlined,
+		FloatingInputOutlinedWarning
 	},
 	name: 'SignupView',
 	data() {

@@ -16,21 +16,11 @@
 					</div>
 					<div v-else>
 						<div v-if="!duplicateUsername">
-							<div class="relative">
-								<input
-									v-model="newUsername"
-									type="text"
-									id="username"
-									class="block py-2.5 px-0 w-full text-sm text-black bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-									placeholder=" "
-								/>
-								<label
-									for="username"
-									class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1"
-									>New Username</label
-								>
-							</div>
-
+							<FloatingInputStandard
+								v-model="newUsername"
+								label="New Username"
+								type="text"
+							/>
 							<div v-if="!validUsername" class="flex gap-1 justify-center mt-3">
 								<p class="text-orange-600">Invalid Username.</p>
 								<svg
@@ -52,20 +42,11 @@
 							</div>
 						</div>
 						<div v-else>
-							<div class="relative">
-								<input
-									v-model="newUsername"
-									type="text"
-									id="username"
-									class="block py-2.5 px-0 w-full text-sm text-black bg-transparent border-0 border-b-2 border-red-300 appearance-none focus:outline-none focus:ring-0 focus:border-red-600 peer"
-									placeholder=" "
-								/>
-								<label
-									for="username"
-									class="absolute text-sm text-red-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-red-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1"
-									>New Username</label
-								>
-							</div>
+							<FloatingInputStandardWarning
+								v-model="newUsername"
+								label="New Username"
+								type="text"
+							/>
 							<div v-if="!validUsername" class="flex gap-1 justify-center mt-3">
 								<p class="text-orange-600">Invalid Username.</p>
 								<svg
@@ -153,20 +134,11 @@
 					</div>
 					<div v-else>
 						<div v-if="!duplicateEmail">
-							<div class="relative">
-								<input
-									v-model="newEmail"
-									type="text"
-									id="email"
-									class="block py-2.5 px-0 w-full text-sm text-black bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-									placeholder=" "
-								/>
-								<label
-									for="email"
-									class="absolute text-sm text-gray-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1"
-									>New Email</label
-								>
-							</div>
+							<FloatingInputStandard
+								v-model="newEmail"
+								label="New Email"
+								type="text"
+							/>
 							<div v-if="!validEmail" class="flex gap-1 justify-center mt-3">
 								<p class="text-orange-600">Invalid Email.</p>
 								<svg
@@ -188,20 +160,11 @@
 							</div>
 						</div>
 						<div v-else>
-							<div class="relative">
-								<input
-									v-model="newEmail"
-									type="text"
-									id="email"
-									class="block py-2.5 px-0 w-full text-sm text-black bg-transparent border-0 border-b-2 border-red-300 appearance-none focus:outline-none focus:ring-0 focus:border-red-600 peer"
-									placeholder=" "
-								/>
-								<label
-									for="email"
-									class="absolute text-sm text-red-500 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-red-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1"
-									>New Email</label
-								>
-							</div>
+							<FloatingInputStandardWarning
+								v-model="newUsername"
+								label="New Username"
+								type="text"
+							/>
 							<div v-if="!validEmail" class="flex gap-1 justify-center mt-3">
 								<p class="text-orange-600">Invalid Email.</p>
 								<svg
@@ -317,8 +280,15 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
+import FloatingInputStandard from '../components/floatinginput/FloatingInputStandard.vue';
+import FloatingInputStandardWarning from '../components/floatinginput/FloatingInputStandardWarning.vue';
 
 export default {
+	components: {
+		FloatingInputStandard,
+		FloatingInputStandardWarning,
+	},
+
 	name: 'ProfileView',
 	data: () => ({
 		newUsername: undefined,
