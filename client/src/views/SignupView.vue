@@ -16,22 +16,7 @@
 						/>
 						<div v-if="!validUsername" class="flex gap-2 justify-center mb-4">
 							<p class="text-orange-600">Invalid Username.</p>
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								class="stroke-orange-600 flex self-center hover:cursor-pointer"
-								width="18"
-								height="18"
-								viewBox="0 0 30 30"
-								fill="none"
-								stroke="#000000"
-								stroke-width="2"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-							>
-								<circle cx="12" cy="12" r="10"></circle>
-								<path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
-								<line x1="12" y1="17" x2="12.01" y2="17"></line>
-							</svg>
+							<div v-html="svg.warn"></div>
 						</div>
 					</div>
 					<div v-else>
@@ -41,115 +26,46 @@
 							type="text"
 						/>
 						<div class="flex gap-2 justify-center mb-4">
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								class="stroke-red-600"
-								width="24"
-								height="24"
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="#000000"
-								stroke-width="2"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-							>
-								<polygon
-									points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"
-								></polygon>
-								<line x1="12" y1="8" x2="12" y2="12"></line>
-								<line x1="12" y1="16" x2="12.01" y2="16"></line>
-							</svg>
+							<div v-html="svg.error"></div>
 							<p class="text-red-600">Username already exists.</p>
 						</div>
 						<div v-if="!validUsername" class="flex gap-2 justify-center mb-4">
 							<p class="text-orange-600">Invalid Username.</p>
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								class="stroke-orange-600 flex self-center hover:cursor-pointer"
-								width="18"
-								height="18"
-								viewBox="0 0 30 30"
-								fill="none"
-								stroke="#000000"
-								stroke-width="2"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-							>
-								<circle cx="12" cy="12" r="10"></circle>
-								<path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
-								<line x1="12" y1="17" x2="12.01" y2="17"></line>
-							</svg>
+							<div v-html="svg.warn"></div>
 						</div>
 					</div>
 					<!-- USERNAME END -->
 
 					<!-- EMAIL BEGIN -->
 					<div v-if="!duplicateEmail">
-						<FloatingInputOutlined v-model="user.email" label="Email" type="text" />
+						<FloatingInputOutlined
+							v-model="user.email"
+							label="Email"
+							type="text"
+						/>
 						<div v-if="!validEmail" class="flex gap-2 justify-center mb-4">
 							<p class="text-orange-600">Invalid Email.</p>
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								class="stroke-orange-600 flex self-center hover:cursor-pointer"
-								width="18"
-								height="18"
-								viewBox="0 0 30 30"
-								fill="none"
-								stroke="#000000"
-								stroke-width="2"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-							>
-								<circle cx="12" cy="12" r="10"></circle>
-								<path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
-								<line x1="12" y1="17" x2="12.01" y2="17"></line>
-							</svg>
+							<div v-html="svg.warn"></div>
 						</div>
 					</div>
 					<div v-else>
-						<FloatingInputOutlinedWarning v-model="user.email" label="Email" type="text" />
+						<FloatingInputOutlinedWarning
+							v-model="user.email"
+							label="Email"
+							type="text"
+						/>
 						<div class="flex gap-2 justify-center mb-4">
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								class="stroke-red-600"
-								width="24"
-								height="24"
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="#000000"
-								stroke-width="2"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-							>
-								<polygon
-									points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"
-								></polygon>
-								<line x1="12" y1="8" x2="12" y2="12"></line>
-								<line x1="12" y1="16" x2="12.01" y2="16"></line>
-							</svg>
+						<div v-html="svg.error"></div>
 							<p class="text-red-600">Email already exists.</p>
 						</div>
 						<div v-if="!validEmail" class="flex gap-2 justify-center mb-4">
 							<p class="text-orange-600">Invalid Email.</p>
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								class="stroke-orange-600 flex self-center hover:cursor-pointer"
-								width="18"
-								height="18"
-								viewBox="0 0 30 30"
-								fill="none"
-								stroke="#000000"
-								stroke-width="2"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-							>
-								<circle cx="12" cy="12" r="10"></circle>
-								<path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
-								<line x1="12" y1="17" x2="12.01" y2="17"></line>
-							</svg>
+							<div v-html="svg.warn"></div>
 						</div>
 					</div>
 					<!-- EMAIL END -->
+
+					<!-- 	PASSWORD BEGIN -->
 					<FloatingInputOutlined
 						v-model="user.password"
 						label="Password"
@@ -160,6 +76,8 @@
 							Password has to be 8 or more characters long.
 						</p>
 					</div>
+					<!-- PASSWORD END -->
+					
 					<div class="flex-col items-center">
 						<button
 							v-bind:disabled="isButtonDisabled"
@@ -194,11 +112,47 @@ import FloatingInputOutlinedWarning from '../components/floatinginput/FloatingIn
 export default {
 	components: {
 		FloatingInputOutlined,
-		FloatingInputOutlinedWarning
+		FloatingInputOutlinedWarning,
 	},
 	name: 'SignupView',
 	data() {
 		return {
+			svg: {
+				warn: `<svg
+								xmlns="http://www.w3.org/2000/svg"
+								class="stroke-orange-600 flex self-center hover:cursor-pointer"
+								width="18"
+								height="18"
+								viewBox="0 0 30 30"
+								fill="none"
+								stroke="#000000"
+								stroke-width="2"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+							>
+								<circle cx="12" cy="12" r="10"></circle>
+								<path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+								<line x1="12" y1="17" x2="12.01" y2="17"></line>
+							</svg>`,
+				error: `		<svg
+								xmlns="http://www.w3.org/2000/svg"
+								class="stroke-red-600"
+								width="24"
+								height="24"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="#000000"
+								stroke-width="2"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+							>
+								<polygon
+									points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"
+								></polygon>
+								<line x1="12" y1="8" x2="12" y2="12"></line>
+								<line x1="12" y1="16" x2="12.01" y2="16"></line>
+							</svg>`,
+			},
 			user: {
 				username: undefined,
 				email: undefined,
