@@ -30,8 +30,8 @@ nav a.router-link-exact-active {
 
 <script>
 import { mapActions, mapState } from 'vuex';
-import Navbar from './components/Navbar.vue';
-import NavbarAuth from './components/NavbarAuth.vue';
+import Navbar from './components/navbar/Navbar.vue';
+import NavbarAuth from './components/navbar/NavbarAuth.vue';
 
 export default {
 	components: {
