@@ -12,13 +12,20 @@ const limitToUser = setField({
   as: "params.query.userId",
 });
 
+
+const setDateStamp = require('../../hooks/set-date-stamp');
+
+
+const setTimeStamp = require('../../hooks/set-time-stamp');
+
+
 module.exports = {
   before: {
     all: [authenticate("jwt")],
     find: [limitToUser],
     get: [limitToUser],
-    create: [setUserId],
-    update: [limitToUser],
+    create: [setUserId, setDateStamp('dateCreated'), setTimeStamp('timeCreated')],
+    update: [limitToUser, setDateStamp('dateUpdated'), setTimeStamp('timeUpdated')],
     patch: [limitToUser],
     remove: [limitToUser],
   },
