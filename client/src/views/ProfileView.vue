@@ -243,6 +243,10 @@
 				</div>
 			</div>
 			<div v-for="user in users" :key="user.id">
+				<div class="flex justify-center gap-3 pt-3">
+					<p>Account Creation Date:</p>
+					<p>{{ user.dateCreated }}</p>
+				</div>
 				<button
 					v-if="!(usernameEdit || emailEdit)"
 					@click="deleteWarn(user.id)"
