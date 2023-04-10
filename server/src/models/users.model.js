@@ -16,6 +16,8 @@ module.exports = function (app) {
           table.string("username").unique();
           table.string("email").unique();
           table.string("password");
+          table.string('dateCreated')
+          table.string('dateUpdated')
           //table.timestamps(false, true); timestamps throwing bad request error on update
         })
         .then(() => console.log(`Created ${tableName} table`))
