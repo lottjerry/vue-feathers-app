@@ -5,6 +5,8 @@
 			v-for="message in messages"
 			:key="message.id"
 		>
+		<p v-if="(message.timeUpdated)">{{ message.dateUpdated}}, {{ message.timeUpdated }}</p>
+		<p v-else>{{ message.dateCreated}}, {{ message.timeCreated }} </p>
 			<p
 				v-if="!(selected === message.id)"
 				class="flex self-center text-black m-auto justify-start"

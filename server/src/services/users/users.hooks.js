@@ -1,9 +1,8 @@
-const { authenticate } = require('@feathersjs/authentication').hooks;
+const { authenticate } = require("@feathersjs/authentication").hooks;
 const { setField } = require("feathers-authentication-hooks");
 
-const {
-  hashPassword, protect
-} = require('@feathersjs/authentication-local').hooks;
+const { hashPassword, protect } =
+  require("@feathersjs/authentication-local").hooks;
 
 // Limit all external access of the users service to the authenticated user:
 const limitToUser = setField({
@@ -13,25 +12,14 @@ const limitToUser = setField({
 
 const setDateStamp = require("../../hooks/set-date-stamp");
 
-
 module.exports = {
   before: {
     all: [],
     find: [authenticate("jwt"), limitToUser],
     get: [authenticate("jwt"), limitToUser],
     create: [hashPassword("password"), setDateStamp("dateCreated")],
-    update: [
-      hashPassword("password"),
-      authenticate("jwt"),
-      limitToUser,
-      setDateStamp("dateUpdated"),
-    ],
-    patch: [
-      hashPassword("password"),
-      authenticate("jwt"),
-      limitToUser,
-      setDateStamp("dateUpdated"),
-    ],
+    update: [hashPassword("password"), authenticate("jwt"), limitToUser],
+    patch: [hashPassword("password"), authenticate("jwt"), limitToUser],
     remove: [authenticate("jwt"), limitToUser],
   },
 

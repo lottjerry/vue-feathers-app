@@ -5,7 +5,6 @@
 module.exports = (name) => {
   return async (context) => {
     context.data[name] = new Date().toLocaleDateString("en-us", {
-      weekday: "short",
       year: "numeric",
       month: "short",
       day: "numeric",
