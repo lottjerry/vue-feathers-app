@@ -10,14 +10,28 @@ const limitToUser = setField({
   from: "params.user.id",
   as: "params.query.id",
 });
+
+const setDateStamp = require("../../hooks/set-date-stamp");
+
+
 module.exports = {
   before: {
     all: [],
     find: [authenticate("jwt"), limitToUser],
     get: [authenticate("jwt"), limitToUser],
-    create: [hashPassword("password")],
-    update: [hashPassword("password"), authenticate("jwt"), limitToUser],
-    patch: [hashPassword("password"), authenticate("jwt"), limitToUser],
+    create: [hashPassword("password"), setDateStamp("dateCreated")],
+    update: [
+      hashPassword("password"),
+      authenticate("jwt"),
+      limitToUser,
+      setDateStamp("dateUpdated"),
+    ],
+    patch: [
+      hashPassword("password"),
+      authenticate("jwt"),
+      limitToUser,
+      setDateStamp("dateUpdated"),
+    ],
     remove: [authenticate("jwt"), limitToUser],
   },
 
