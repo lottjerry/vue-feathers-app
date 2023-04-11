@@ -15,8 +15,8 @@ module.exports = (date, time) => {
     // The logged in user
     const { user } = context.params;
     // The actual message text
-    // Make sure that messages are no longer than 400 characters
-    const text = data.messageBody.substring(0, 400);
+    // Make sure that messages are no longer than 100 characters
+    const text = data.messageBody.substring(0, 100);
 
     // Update the original data (so that people can't submit additional stuff)
     data.messageBody = text;

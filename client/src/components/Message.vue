@@ -5,8 +5,10 @@
 			v-for="message in messages"
 			:key="message.id"
 		>
-		<p v-if="(message.timeUpdated)">{{ message.dateUpdated}}, {{ message.timeUpdated }}</p>
-		<p v-else>{{ message.dateCreated}}, {{ message.timeCreated }} </p>
+			<p v-if="message.timeUpdated">
+				{{ message.dateUpdated }}, {{ message.timeUpdated }}
+			</p>
+			<p v-else>{{ message.dateCreated }}, {{ message.timeCreated }}</p>
 			<p
 				v-if="!(selected === message.id)"
 				class="flex self-center text-black m-auto justify-start"
@@ -46,6 +48,30 @@
 						<line x1="12" y1="16" x2="12.01" y2="16"></line>
 					</svg>
 					<p class="text-orange-600">Message can't be empty.</p>
+				</div>
+					<div
+					v-if="!validNewMessage2"
+					class="flex gap-1 justify-center my-5 self-center"
+				>
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						class="stroke-orange-400"
+						width="24"
+						height="24"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="#000000"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					>
+						<polygon
+							points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"
+						></polygon>
+						<line x1="12" y1="8" x2="12" y2="12"></line>
+						<line x1="12" y1="16" x2="12.01" y2="16"></line>
+					</svg>
+					<p class="text-orange-600">Message can only contain 100 characters.</p>
 				</div>
 			</div>
 			<div v-if="!(selected === message.id)" class="flex gap-5">
@@ -88,7 +114,7 @@
 			</div>
 			<div v-if="selected === message.id" class="flex gap-5">
 				<svg
-					v-if="newMessage"
+					v-if="newMessage && (validNewMessage2)"
 					@click="updateMessage(message.id)"
 					xmlns="http://www.w3.org/2000/svg"
 					class="hover:stroke-green-600 hover:cursor-pointer flex self-center"
@@ -153,6 +179,7 @@ export default {
 		edit: false,
 		selected: '',
 		validNewMessage: true,
+		validNewMessage2: true,
 		isNewButtonDisabled: true,
 	}),
 	mounted() {
@@ -199,10 +226,15 @@ export default {
 			} else {
 				this.validNewMessage = false;
 			}
+			if (/^.{0,100}$/.test(value)) {
+				this.validNewMessage2 = true;
+			} else {
+				this.validNewMessage2 = false;
+			}
 		},
 
 		checkNewValidation() {
-			if (this.validNewMessage === true && this.newMessage != '') {
+			if (this.validNewMessage2 === true && this.validNewMessage === true && this.newMessage != '') {
 				this.isNewButtonDisabled = false;
 			} else {
 				this.isNewButtonDisabled = true;
