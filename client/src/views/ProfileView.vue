@@ -1,7 +1,7 @@
 <template>
 	<div class="flex justify-center">
 		<div
-			v-if="!Removing"
+			v-if="!(Removing || Patching || Updating)"
 			class="bg-white shadow-lg rounded px-8 pt-6 pb-8 mb-4 max-w-xl w-full flex-col gap-4 border justify-center"
 		>
 			<h1 class="text-3xl font-bold text-blue-600 p-6 underline">My Profile</h1>

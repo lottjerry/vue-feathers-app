@@ -77,10 +77,10 @@
 			</div>
 		</div>
 		<div class="border-2 border-black my-2 mx-40 rounded-lg overflow-auto h-96">
-			<div v-if="!loading">
+			<div v-if="!(loading || Removing || Patching || Updating)">
 				<Message />
 			</div>
-			<div v-if="(loading || Removing)" class="p-20">
+			<div v-if="loading || Removing || Patching || Updating" class="p-20">
 				<div
 					class="inline-block h-48 w-48 animate-spin rounded-full border-8 border-solid border-current border-r-transparent align-[-0.125em] text-blue-600 motion-reduce:animate-[spin_1.5s_linear_infinite]"
 					role="status"
@@ -193,6 +193,8 @@ export default {
 	computed: {
 		...mapState('messages', { loading: 'isCreatePending' }),
 		...mapState('messages', { Removing: 'isRemovePending' }),
+		...mapState('messages', { Updating: 'isUpdatePending' }),
+		...mapState('messages', { Patching: 'isPatchPending' }),
 		...mapGetters('messages', { findMessagesInStore: 'find' }),
 		messages() {
 			return this.findMessagesInStore({ query: {} }).data;
