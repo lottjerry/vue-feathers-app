@@ -1,8 +1,8 @@
 <template>
 	<div>
-		<h1 class="text-3xl font-bold text-blue-600">LOGIN</h1>
-		<div class="flex justify-center">
+		<div class="flex justify-center" v-if="!loading">
 			<div class="w-full max-w-xs">
+				<h1 class="text-3xl font-bold text-blue-600">LOGIN</h1>
 				<form
 					@submit.prevent="login"
 					class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
@@ -38,16 +38,27 @@
 						</div>
 					</div>
 				</form>
+
 				<p class="text-center text-gray-500 text-xs">
 					&copy;2023 Feathers Playground
 				</p>
 			</div>
 		</div>
+		<div
+			v-if="loading"
+			class="inline-block h-48 w-48 animate-spin rounded-full border-8 border-solid border-current border-r-transparent align-[-0.125em] text-blue-600 motion-reduce:animate-[spin_1.5s_linear_infinite]"
+			role="status"
+		>
+			<span
+				class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]"
+				>Loading...</span
+			>
+		</div>
 	</div>
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapState } from 'vuex';
 import FloatingInputOutlined from '../components/floatinginput/FloatingInputOutlined.vue';
 
 export default {
@@ -81,6 +92,9 @@ export default {
 		},
 		errorMessage: undefined,
 	}),
+	computed: {
+		...mapState('auth', { loading: 'isAuthenticatePending' }),
+	},
 	methods: {
 		...mapActions('auth', ['authenticate']),
 		login() {

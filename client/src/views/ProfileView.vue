@@ -1,6 +1,7 @@
 <template>
 	<div class="flex justify-center">
 		<div
+			v-if="!Removing"
 			class="bg-white shadow-lg rounded px-8 pt-6 pb-8 mb-4 max-w-xl w-full flex-col gap-4 border justify-center"
 		>
 			<h1 class="text-3xl font-bold text-blue-600 p-6 underline">My Profile</h1>
@@ -279,11 +280,22 @@
 			</div>
 			<!-- End User Update Buttons -->
 		</div>
+		<div v-if="(Removing || Patching || Updating)" class="p-20">
+			<div
+				class="inline-block h-48 w-48 animate-spin rounded-full border-8 border-solid border-current border-r-transparent align-[-0.125em] text-blue-600 motion-reduce:animate-[spin_1.5s_linear_infinite]"
+				role="status"
+			>
+				<span
+					class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]"
+					>Loading...</span
+				>
+			</div>
+		</div>
 	</div>
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions, mapGetters, mapState } from 'vuex';
 import FloatingInputStandard from '../components/floatinginput/FloatingInputStandard.vue';
 import FloatingInputStandardWarning from '../components/floatinginput/FloatingInputStandardWarning.vue';
 
@@ -476,6 +488,9 @@ export default {
 		},
 	},
 	computed: {
+		...mapState('users', { Removing: 'isRemovePending' }),
+		...mapState('users', { Patching: 'isPatchPending' }),
+		...mapState('users', { Updating: 'isUpdatePending' }),
 		...mapGetters('messages', { findMessagesInStore: 'find' }),
 		messages() {
 			return this.findMessagesInStore({ query: {} }).data;

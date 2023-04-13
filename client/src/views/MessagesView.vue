@@ -60,7 +60,9 @@
 							<line x1="12" y1="8" x2="12" y2="12"></line>
 							<line x1="12" y1="16" x2="12.01" y2="16"></line>
 						</svg>
-						<p class="text-orange-600">Message can only contain 100 characters.</p>
+						<p class="text-orange-600">
+							Message can only contain 100 characters.
+						</p>
 					</div>
 					<div class="flex flex-col items-center gap-5">
 						<button
@@ -75,8 +77,22 @@
 			</div>
 		</div>
 		<div class="border-2 border-black my-2 mx-40 rounded-lg overflow-auto h-96">
-			<Message />
+			<div v-if="!loading">
+				<Message />
+			</div>
+			<div v-if="(loading || Removing)" class="p-20">
+				<div
+					class="inline-block h-48 w-48 animate-spin rounded-full border-8 border-solid border-current border-r-transparent align-[-0.125em] text-blue-600 motion-reduce:animate-[spin_1.5s_linear_infinite]"
+					role="status"
+				>
+					<span
+						class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]"
+						>Loading...</span
+					>
+				</div>
+			</div>
 		</div>
+
 		<button
 			v-if="this.messages.length"
 			@click="deleteWarn()"
@@ -94,7 +110,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions, mapGetters, mapState } from 'vuex';
 import FloatingInputOutlined from '../components/floatinginput/FloatingInputOutlined.vue';
 import Message from '../components/Message.vue';
 
@@ -138,7 +154,7 @@ export default {
 			} else {
 				this.validMessage = false;
 			}
-				if (/^.{0,100}$/.test(value)) {
+			if (/^.{0,100}$/.test(value)) {
 				this.validMessage2 = true;
 			} else {
 				this.validMessage2 = false;
@@ -146,7 +162,11 @@ export default {
 		},
 
 		checkValidation() {
-			if (this.validMessage2 === true && this.validMessage === true && this.message.messageBody != undefined) {
+			if (
+				this.validMessage2 === true &&
+				this.validMessage === true &&
+				this.message.messageBody != undefined
+			) {
 				this.isButtonDisabled = false;
 			} else {
 				this.isButtonDisabled = true;
@@ -171,6 +191,8 @@ export default {
 		},
 	},
 	computed: {
+		...mapState('messages', { loading: 'isCreatePending' }),
+		...mapState('messages', { Removing: 'isRemovePending' }),
 		...mapGetters('messages', { findMessagesInStore: 'find' }),
 		messages() {
 			return this.findMessagesInStore({ query: {} }).data;
