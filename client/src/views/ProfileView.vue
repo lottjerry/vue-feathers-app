@@ -1,286 +1,307 @@
 <template>
-	<div class="flex justify-center">
-		<div
-			v-if="!(Removing || Patching || Updating)"
-			class="bg-white shadow-lg rounded px-8 pt-6 pb-8 mb-4 max-w-xl w-full flex-col gap-4 border justify-center"
-		>
-			<h1 class="text-3xl font-bold text-blue-600 p-6 underline">My Profile</h1>
-			<div class="mb-6 p-3 flex justify-center">
-				<div
-					class="relative flex flex-row gap-2"
-					v-for="user in users"
-					:key="user.id"
-				>
-					<div v-if="!usernameEdit" class="flex gap-3">
-						<div class="flex self-center">Username:</div>
-						{{ user.username }}
-					</div>
-					<div v-else>
-						<div v-if="!duplicateUsername">
-							<FloatingInputStandard
-								v-model="newUsername"
-								label="New Username"
-								type="text"
-							/>
-							<div v-if="!validUsername" class="flex gap-1 justify-center mt-3">
-								<p class="text-orange-600">Invalid Username.</p>
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									class="stroke-orange-600 flex self-center hover:cursor-pointer"
-									width="18"
-									height="18"
-									viewBox="0 0 30 30"
-									fill="none"
-									stroke="#000000"
-									stroke-width="2"
-									stroke-linecap="round"
-									stroke-linejoin="round"
-								>
-									<circle cx="12" cy="12" r="10"></circle>
-									<path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
-									<line x1="12" y1="17" x2="12.01" y2="17"></line>
-								</svg>
-							</div>
+	<div >
+		<div class="flex justify-center" v-if="!logoutPending">
+			<div
+				v-if="!(Removing || Patching || Updating)"
+				class="bg-white shadow-lg rounded px-8 pt-6 pb-8 mb-4 max-w-xl w-full flex-col gap-4 border justify-center"
+			>
+				<h1 class="text-3xl font-bold text-blue-600 p-6 underline">
+					My Profile
+				</h1>
+				<div class="mb-6 p-3 flex justify-center">
+					<div
+						class="relative flex flex-row gap-2"
+						v-for="user in users"
+						:key="user.id"
+					>
+						<div v-if="!usernameEdit" class="flex gap-3">
+							<div class="flex self-center">Username:</div>
+							{{ user.username }}
 						</div>
 						<div v-else>
-							<FloatingInputStandardWarning
-								v-model="newUsername"
-								label="New Username"
-								type="text"
-							/>
-							<div v-if="!validUsername" class="flex gap-1 justify-center mt-3">
-								<p class="text-orange-600">Invalid Username.</p>
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									class="stroke-orange-600 flex self-center hover:cursor-pointer"
-									width="18"
-									height="18"
-									viewBox="0 0 30 30"
-									fill="none"
-									stroke="#000000"
-									stroke-width="2"
-									stroke-linecap="round"
-									stroke-linejoin="round"
+							<div v-if="!duplicateUsername">
+								<FloatingInputStandard
+									v-model="newUsername"
+									label="New Username"
+									type="text"
+								/>
+								<div
+									v-if="!validUsername"
+									class="flex gap-1 justify-center mt-3"
 								>
-									<circle cx="12" cy="12" r="10"></circle>
-									<path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
-									<line x1="12" y1="17" x2="12.01" y2="17"></line>
-								</svg>
+									<p class="text-orange-600">Invalid Username.</p>
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										class="stroke-orange-600 flex self-center hover:cursor-pointer"
+										width="18"
+										height="18"
+										viewBox="0 0 30 30"
+										fill="none"
+										stroke="#000000"
+										stroke-width="2"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+									>
+										<circle cx="12" cy="12" r="10"></circle>
+										<path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+										<line x1="12" y1="17" x2="12.01" y2="17"></line>
+									</svg>
+								</div>
 							</div>
-
-							<div class="flex justify-center mt-4 gap-2">
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									class="stroke-red-600"
-									width="24"
-									height="24"
-									viewBox="0 0 24 24"
-									fill="none"
-									stroke="#000000"
-									stroke-width="2"
-									stroke-linecap="round"
-									stroke-linejoin="round"
+							<div v-else>
+								<FloatingInputStandardWarning
+									v-model="newUsername"
+									label="New Username"
+									type="text"
+								/>
+								<div
+									v-if="!validUsername"
+									class="flex gap-1 justify-center mt-3"
 								>
-									<polygon
-										points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"
-									></polygon>
-									<line x1="12" y1="8" x2="12" y2="12"></line>
-									<line x1="12" y1="16" x2="12.01" y2="16"></line>
-								</svg>
-								<p class="text-red-600">Username already exists.</p>
+									<p class="text-orange-600">Invalid Username.</p>
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										class="stroke-orange-600 flex self-center hover:cursor-pointer"
+										width="18"
+										height="18"
+										viewBox="0 0 30 30"
+										fill="none"
+										stroke="#000000"
+										stroke-width="2"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+									>
+										<circle cx="12" cy="12" r="10"></circle>
+										<path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+										<line x1="12" y1="17" x2="12.01" y2="17"></line>
+									</svg>
+								</div>
+
+								<div class="flex justify-center mt-4 gap-2">
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										class="stroke-red-600"
+										width="24"
+										height="24"
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="#000000"
+										stroke-width="2"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+									>
+										<polygon
+											points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"
+										></polygon>
+										<line x1="12" y1="8" x2="12" y2="12"></line>
+										<line x1="12" y1="16" x2="12.01" y2="16"></line>
+									</svg>
+									<p class="text-red-600">Username already exists.</p>
+								</div>
 							</div>
 						</div>
-					</div>
 
-					<svg
-						v-if="!usernameEdit"
-						@click="toggleUsernameEdit()"
-						xmlns="http://www.w3.org/2000/svg"
-						class="hover:stroke-blue-600 hover:cursor-pointer flex self-center"
-						width="24"
-						height="24"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="#000000"
-						stroke-width="2"
-						stroke-linecap="round"
-						stroke-linejoin="round"
-					>
-						<polygon points="16 3 21 8 8 21 3 21 3 16 16 3"></polygon>
-					</svg>
-					<svg
-						v-else
-						@click="cancelUsernameEdit()"
-						xmlns="http://www.w3.org/2000/svg"
-						class="hover:stroke-red-600 hover:cursor-pointer flex self-center"
-						width="24"
-						height="24"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="#000000"
-						stroke-width="2"
-						stroke-linecap="round"
-						stroke-linejoin="round"
-					>
-						<line x1="18" y1="6" x2="6" y2="18"></line>
-						<line x1="6" y1="6" x2="18" y2="18"></line>
-					</svg>
-				</div>
-			</div>
-			<div class="mb-6 flex justify-center">
-				<div class="relative flex gap-4" v-for="user in users" :key="user.id">
-					<div v-if="!emailEdit" class="flex gap-3">
-						<div class="flex self-center">Email:</div>
-						{{ user.email }}
+						<svg
+							v-if="!usernameEdit"
+							@click="toggleUsernameEdit()"
+							xmlns="http://www.w3.org/2000/svg"
+							class="hover:stroke-blue-600 hover:cursor-pointer flex self-center"
+							width="24"
+							height="24"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="#000000"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+						>
+							<polygon points="16 3 21 8 8 21 3 21 3 16 16 3"></polygon>
+						</svg>
+						<svg
+							v-else
+							@click="cancelUsernameEdit()"
+							xmlns="http://www.w3.org/2000/svg"
+							class="hover:stroke-red-600 hover:cursor-pointer flex self-center"
+							width="24"
+							height="24"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="#000000"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+						>
+							<line x1="18" y1="6" x2="6" y2="18"></line>
+							<line x1="6" y1="6" x2="18" y2="18"></line>
+						</svg>
 					</div>
-					<div v-else>
-						<div v-if="!duplicateEmail">
-							<FloatingInputStandard
-								v-model="newEmail"
-								label="New Email"
-								type="text"
-							/>
-							<div v-if="!validEmail" class="flex gap-1 justify-center mt-3">
-								<p class="text-orange-600">Invalid Email.</p>
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									class="stroke-orange-600 flex self-center hover:cursor-pointer"
-									width="18"
-									height="18"
-									viewBox="0 0 30 30"
-									fill="none"
-									stroke="#000000"
-									stroke-width="2"
-									stroke-linecap="round"
-									stroke-linejoin="round"
-								>
-									<circle cx="12" cy="12" r="10"></circle>
-									<path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
-									<line x1="12" y1="17" x2="12.01" y2="17"></line>
-								</svg>
-							</div>
+				</div>
+				<div class="mb-6 flex justify-center">
+					<div class="relative flex gap-4" v-for="user in users" :key="user.id">
+						<div v-if="!emailEdit" class="flex gap-3">
+							<div class="flex self-center">Email:</div>
+							{{ user.email }}
 						</div>
 						<div v-else>
-							<FloatingInputStandardWarning
-								v-model="newUsername"
-								label="New Username"
-								type="text"
-							/>
-							<div v-if="!validEmail" class="flex gap-1 justify-center mt-3">
-								<p class="text-orange-600">Invalid Email.</p>
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									class="stroke-orange-600 flex self-center hover:cursor-pointer"
-									width="18"
-									height="18"
-									viewBox="0 0 30 30"
-									fill="none"
-									stroke="#000000"
-									stroke-width="2"
-									stroke-linecap="round"
-									stroke-linejoin="round"
-								>
-									<circle cx="12" cy="12" r="10"></circle>
-									<path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
-									<line x1="12" y1="17" x2="12.01" y2="17"></line>
-								</svg>
+							<div v-if="!duplicateEmail">
+								<FloatingInputStandard
+									v-model="newEmail"
+									label="New Email"
+									type="text"
+								/>
+								<div v-if="!validEmail" class="flex gap-1 justify-center mt-3">
+									<p class="text-orange-600">Invalid Email.</p>
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										class="stroke-orange-600 flex self-center hover:cursor-pointer"
+										width="18"
+										height="18"
+										viewBox="0 0 30 30"
+										fill="none"
+										stroke="#000000"
+										stroke-width="2"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+									>
+										<circle cx="12" cy="12" r="10"></circle>
+										<path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+										<line x1="12" y1="17" x2="12.01" y2="17"></line>
+									</svg>
+								</div>
 							</div>
-							<div class="flex gap-2 justify-center mt-3">
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									class="stroke-red-600"
-									width="24"
-									height="24"
-									viewBox="0 0 24 24"
-									fill="none"
-									stroke="#000000"
-									stroke-width="2"
-									stroke-linecap="round"
-									stroke-linejoin="round"
-								>
-									<polygon
-										points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"
-									></polygon>
-									<line x1="12" y1="8" x2="12" y2="12"></line>
-									<line x1="12" y1="16" x2="12.01" y2="16"></line>
-								</svg>
-								<p class="text-red-600">Email already exists.</p>
+							<div v-else>
+								<FloatingInputStandardWarning
+									v-model="newUsername"
+									label="New Username"
+									type="text"
+								/>
+								<div v-if="!validEmail" class="flex gap-1 justify-center mt-3">
+									<p class="text-orange-600">Invalid Email.</p>
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										class="stroke-orange-600 flex self-center hover:cursor-pointer"
+										width="18"
+										height="18"
+										viewBox="0 0 30 30"
+										fill="none"
+										stroke="#000000"
+										stroke-width="2"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+									>
+										<circle cx="12" cy="12" r="10"></circle>
+										<path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+										<line x1="12" y1="17" x2="12.01" y2="17"></line>
+									</svg>
+								</div>
+								<div class="flex gap-2 justify-center mt-3">
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										class="stroke-red-600"
+										width="24"
+										height="24"
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="#000000"
+										stroke-width="2"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+									>
+										<polygon
+											points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"
+										></polygon>
+										<line x1="12" y1="8" x2="12" y2="12"></line>
+										<line x1="12" y1="16" x2="12.01" y2="16"></line>
+									</svg>
+									<p class="text-red-600">Email already exists.</p>
+								</div>
 							</div>
 						</div>
+						<svg
+							v-if="!emailEdit"
+							@click="toggleEmailEdit()"
+							xmlns="http://www.w3.org/2000/svg"
+							class="hover:stroke-blue-600 hover:cursor-pointer flex self-center"
+							width="24"
+							height="24"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="#000000"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+						>
+							<polygon points="16 3 21 8 8 21 3 21 3 16 16 3"></polygon>
+						</svg>
+						<svg
+							v-else
+							@click="cancelEmailEdit()"
+							xmlns="http://www.w3.org/2000/svg"
+							class="hover:stroke-red-600 hover:cursor-pointer flex self-center"
+							width="24"
+							height="24"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="#000000"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+						>
+							<line x1="18" y1="6" x2="6" y2="18"></line>
+							<line x1="6" y1="6" x2="18" y2="18"></line>
+						</svg>
 					</div>
-					<svg
-						v-if="!emailEdit"
-						@click="toggleEmailEdit()"
-						xmlns="http://www.w3.org/2000/svg"
-						class="hover:stroke-blue-600 hover:cursor-pointer flex self-center"
-						width="24"
-						height="24"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="#000000"
-						stroke-width="2"
-						stroke-linecap="round"
-						stroke-linejoin="round"
-					>
-						<polygon points="16 3 21 8 8 21 3 21 3 16 16 3"></polygon>
-					</svg>
-					<svg
-						v-else
-						@click="cancelEmailEdit()"
-						xmlns="http://www.w3.org/2000/svg"
-						class="hover:stroke-red-600 hover:cursor-pointer flex self-center"
-						width="24"
-						height="24"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="#000000"
-						stroke-width="2"
-						stroke-linecap="round"
-						stroke-linejoin="round"
-					>
-						<line x1="18" y1="6" x2="6" y2="18"></line>
-						<line x1="6" y1="6" x2="18" y2="18"></line>
-					</svg>
 				</div>
-			</div>
-			<div v-for="user in users" :key="user.id">
-				<div class="flex justify-center gap-3 pt-3">
-					<p>Account Creation Date:</p>
-					<p>{{ user.dateCreated }}</p>
+				<div v-for="user in users" :key="user.id">
+					<div class="flex justify-center gap-3 pt-3">
+						<p>Account Creation Date:</p>
+						<p>{{ user.dateCreated }}</p>
+					</div>
+					<button
+						v-if="!(usernameEdit || emailEdit)"
+						@click="deleteWarn(user.id)"
+						class="border-2 border-red-600 bg-white hover:bg-red-600 text-red-600 hover:text-white font-bold py-1 px-2 rounded hover:cursor-pointer focus:outline-none focus:shadow-outline transition ease-in-out mx-10 my-16"
+					>
+						Delete Account
+					</button>
 				</div>
-				<button
-					v-if="!(usernameEdit || emailEdit)"
-					@click="deleteWarn(user.id)"
-					class="border-2 border-red-600 bg-white hover:bg-red-600 text-red-600 hover:text-white font-bold py-1 px-2 rounded hover:cursor-pointer focus:outline-none focus:shadow-outline transition ease-in-out mx-10 my-16"
-				>
-					Delete Account
-				</button>
+				<!-- User Update buttons -->
+				<div v-if="usernameEdit || emailEdit">
+					<div
+						class="flex justify-center gap-5 mx-5 my-16"
+						v-for="user in users"
+						:key="user.id"
+					>
+						<button
+							v-bind:disabled="isButtonDisabled"
+							@click="updateUser(user.id)"
+							class="border-2 border-blue-600 bg-white hover:bg-blue-600 text-blue-600 hover:text-white font-bold py-1 px-2 rounded hover:cursor-pointer focus:outline-none focus:shadow-outline transition ease-in-out disabled:bg-gray-400 disabled:border-gray-400 disabled:text-gray-500 disabled:cursor-not-allowed"
+						>
+							Update
+						</button>
+						<button
+							@click="cancelUpdate()"
+							class="border-2 border-red-600 bg-white hover:bg-red-600 text-red-600 hover:text-white font-bold py-1 px-2 rounded hover:cursor-pointer focus:outline-none focus:shadow-outline transition ease-in-out"
+						>
+							Cancel
+						</button>
+					</div>
+				</div>
+				<!-- End User Update Buttons -->
 			</div>
-			<!-- User Update buttons -->
-			<div v-if="usernameEdit || emailEdit">
+			<div v-if="Removing || Patching || Updating" class="p-20">
 				<div
-					class="flex justify-center gap-5 mx-5 my-16"
-					v-for="user in users"
-					:key="user.id"
+					class="inline-block h-48 w-48 animate-spin rounded-full border-8 border-solid border-current border-r-transparent align-[-0.125em] text-blue-600 motion-reduce:animate-[spin_1.5s_linear_infinite]"
+					role="status"
 				>
-					<button
-						v-bind:disabled="isButtonDisabled"
-						@click="updateUser(user.id)"
-						class="border-2 border-blue-600 bg-white hover:bg-blue-600 text-blue-600 hover:text-white font-bold py-1 px-2 rounded hover:cursor-pointer focus:outline-none focus:shadow-outline transition ease-in-out disabled:bg-gray-400 disabled:border-gray-400 disabled:text-gray-500 disabled:cursor-not-allowed"
+					<span
+						class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]"
+						>Loading...</span
 					>
-						Update
-					</button>
-					<button
-						@click="cancelUpdate()"
-						class="border-2 border-red-600 bg-white hover:bg-red-600 text-red-600 hover:text-white font-bold py-1 px-2 rounded hover:cursor-pointer focus:outline-none focus:shadow-outline transition ease-in-out"
-					>
-						Cancel
-					</button>
 				</div>
 			</div>
-			<!-- End User Update Buttons -->
 		</div>
-		<div v-if="(Removing || Patching || Updating)" class="p-20">
+		<div v-if="logoutPending">
 			<div
 				class="inline-block h-48 w-48 animate-spin rounded-full border-8 border-solid border-current border-r-transparent align-[-0.125em] text-blue-600 motion-reduce:animate-[spin_1.5s_linear_infinite]"
 				role="status"
@@ -488,6 +509,7 @@ export default {
 		},
 	},
 	computed: {
+		...mapState('auth', { logoutPending: 'isLogoutPending' }),
 		...mapState('users', { Removing: 'isRemovePending' }),
 		...mapState('users', { Patching: 'isPatchPending' }),
 		...mapState('users', { Updating: 'isUpdatePending' }),

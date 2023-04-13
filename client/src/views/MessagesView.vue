@@ -1,111 +1,126 @@
 <template>
 	<div>
-		<div class="flex justify-center">
-			<div class="w-full max-w-xl">
-				<form
-					@submit.prevent="createMessage"
-					class="bg-white shadow-md rounded px-8 pt-4 pb-4 mb-4"
-				>
-					<div v-if="validMessage">
-						<FloatingInputOutlined
-							v-model="message.messageBody"
-							label="New Message"
-							type="text"
-						/>
-					</div>
-					<div v-else>
-						<FloatingInputOutlined
-							v-model="message.messageBody"
-							label="New Message"
-							type="text"
-						/>
-					</div>
-					<div v-if="!validMessage" class="flex gap-1 justify-center mb-5">
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							class="stroke-orange-400"
-							width="24"
-							height="24"
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="#000000"
-							stroke-width="2"
-							stroke-linecap="round"
-							stroke-linejoin="round"
-						>
-							<polygon
-								points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"
-							></polygon>
-							<line x1="12" y1="8" x2="12" y2="12"></line>
-							<line x1="12" y1="16" x2="12.01" y2="16"></line>
-						</svg>
-						<p class="text-orange-600">Message can't be empty.</p>
-					</div>
-					<div v-if="!validMessage2" class="flex gap-1 justify-center mb-5">
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							class="stroke-orange-400"
-							width="24"
-							height="24"
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="#000000"
-							stroke-width="2"
-							stroke-linecap="round"
-							stroke-linejoin="round"
-						>
-							<polygon
-								points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"
-							></polygon>
-							<line x1="12" y1="8" x2="12" y2="12"></line>
-							<line x1="12" y1="16" x2="12.01" y2="16"></line>
-						</svg>
-						<p class="text-orange-600">
-							Message can only contain 100 characters.
-						</p>
-					</div>
-					<div class="flex flex-col items-center gap-5">
-						<button
-							v-bind:disabled="isButtonDisabled"
-							class="border-2 border-blue-600 bg-white hover:bg-blue-600 text-blue-600 hover:text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition ease-in-out disabled:bg-gray-400 disabled:border-gray-400 disabled:text-gray-500 disabled:cursor-not-allowed"
-							type="submit"
-						>
-							Create Message
-						</button>
-					</div>
-				</form>
-			</div>
-		</div>
-		<div class="border-2 border-black my-2 mx-40 rounded-lg overflow-auto h-96">
-			<div v-if="!(loading || Removing || Patching || Updating)">
-				<Message />
-			</div>
-			<div v-if="loading || Removing || Patching || Updating" class="p-20">
-				<div
-					class="inline-block h-48 w-48 animate-spin rounded-full border-8 border-solid border-current border-r-transparent align-[-0.125em] text-blue-600 motion-reduce:animate-[spin_1.5s_linear_infinite]"
-					role="status"
-				>
-					<span
-						class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]"
-						>Loading...</span
+		<div v-if="!logoutPending">
+			<div class="flex justify-center">
+				<div class="w-full max-w-xl">
+					<form
+						@submit.prevent="createMessage"
+						class="bg-white shadow-md rounded px-8 pt-4 pb-4 mb-4"
 					>
+						<div v-if="validMessage">
+							<FloatingInputOutlined
+								v-model="message.messageBody"
+								label="New Message"
+								type="text"
+							/>
+						</div>
+						<div v-else>
+							<FloatingInputOutlined
+								v-model="message.messageBody"
+								label="New Message"
+								type="text"
+							/>
+						</div>
+						<div v-if="!validMessage" class="flex gap-1 justify-center mb-5">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								class="stroke-orange-400"
+								width="24"
+								height="24"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="#000000"
+								stroke-width="2"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+							>
+								<polygon
+									points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"
+								></polygon>
+								<line x1="12" y1="8" x2="12" y2="12"></line>
+								<line x1="12" y1="16" x2="12.01" y2="16"></line>
+							</svg>
+							<p class="text-orange-600">Message can't be empty.</p>
+						</div>
+						<div v-if="!validMessage2" class="flex gap-1 justify-center mb-5">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								class="stroke-orange-400"
+								width="24"
+								height="24"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="#000000"
+								stroke-width="2"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+							>
+								<polygon
+									points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"
+								></polygon>
+								<line x1="12" y1="8" x2="12" y2="12"></line>
+								<line x1="12" y1="16" x2="12.01" y2="16"></line>
+							</svg>
+							<p class="text-orange-600">
+								Message can only contain 100 characters.
+							</p>
+						</div>
+						<div class="flex flex-col items-center gap-5">
+							<button
+								v-bind:disabled="isButtonDisabled"
+								class="border-2 border-blue-600 bg-white hover:bg-blue-600 text-blue-600 hover:text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition ease-in-out disabled:bg-gray-400 disabled:border-gray-400 disabled:text-gray-500 disabled:cursor-not-allowed"
+								type="submit"
+							>
+								Create Message
+							</button>
+						</div>
+					</form>
 				</div>
 			</div>
-		</div>
+			<div
+				class="border-2 border-black my-2 mx-40 rounded-lg overflow-auto h-96"
+			>
+				<div v-if="!(loading || Removing || Patching || Updating)">
+					<Message />
+				</div>
+				<div v-if="loading || Removing || Patching || Updating" class="p-20">
+					<div
+						class="inline-block h-48 w-48 animate-spin rounded-full border-8 border-solid border-current border-r-transparent align-[-0.125em] text-blue-600 motion-reduce:animate-[spin_1.5s_linear_infinite]"
+						role="status"
+					>
+						<span
+							class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]"
+							>Loading...</span
+						>
+					</div>
+				</div>
+			</div>
 
-		<button
-			v-if="this.messages.length"
-			@click="deleteWarn()"
-			class="border-2 border-red-600 bg-white hover:bg-red-600 text-red-600 hover:text-white font-bold py-1 px-8 rounded focus:outline-none focus:shadow-outline transition ease-in-out"
-		>
-			Delete All
-		</button>
-		<button
-			v-else
-			class="border-2 border-gray-400 bg-gray-400 hover:cursor-not-allowed text-gray-500 font-bold py-1 px-8 rounded"
-		>
-			Delete All
-		</button>
+			<button
+				v-if="this.messages.length"
+				@click="deleteWarn()"
+				class="border-2 border-red-600 bg-white hover:bg-red-600 text-red-600 hover:text-white font-bold py-1 px-8 rounded focus:outline-none focus:shadow-outline transition ease-in-out"
+			>
+				Delete All
+			</button>
+			<button
+				v-else
+				class="border-2 border-gray-400 bg-gray-400 hover:cursor-not-allowed text-gray-500 font-bold py-1 px-8 rounded"
+			>
+				Delete All
+			</button>
+		</div>
+		<div v-if="logoutPending">
+			<div
+				class="inline-block h-48 w-48 animate-spin rounded-full border-8 border-solid border-current border-r-transparent align-[-0.125em] text-blue-600 motion-reduce:animate-[spin_1.5s_linear_infinite]"
+				role="status"
+			>
+				<span
+					class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]"
+					>Loading...</span
+				>
+			</div>
+		</div>
 	</div>
 </template>
 
@@ -191,6 +206,7 @@ export default {
 		},
 	},
 	computed: {
+		...mapState('auth', { logoutPending: 'isLogoutPending' }),
 		...mapState('messages', { loading: 'isCreatePending' }),
 		...mapState('messages', { Removing: 'isRemovePending' }),
 		...mapState('messages', { Updating: 'isUpdatePending' }),
